@@ -34,7 +34,6 @@ function getLocationFromArray(position) {
 }
 
 function initMap() {
-  alert('Welcome to petancaBCN!')
   const initLocation = getLocationFromArray(0);
 
   const map = new google.maps.Map(document.getElementById("map"), {
@@ -60,3 +59,20 @@ function initMap() {
     });
   }
 }
+
+function askIfRobot() {
+  return prompt("Are you a robot? Type YES or NO").toUpperCase();
+}
+
+function sayHi() {
+  alert("Welcome to petancaBCN!");
+}
+
+sayHi();
+
+let isRobot;
+do {
+  isRobot = askIfRobot();
+} while (isRobot !== "YES" && isRobot !== "NO");
+
+console.log(`User answered: ${isRobot}`);
