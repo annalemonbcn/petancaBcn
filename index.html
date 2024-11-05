@@ -16,7 +16,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
-    <script src="script.js" defer></script>
+    <script src="script.js" defer /></script>
     <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBAIpnYbDik5oJO26IkzivjBLrd8v-iOPI&callback=initMap"
       defer
@@ -25,28 +25,14 @@
   <body>
     <header>
       <h1>PetancaBCN</h1>
-      <p>
-        Esta web pretende mostrar un listado de equipamientos deportivos donde
-        practicar petanca en la ciudad de Barcelona, España.
-      </p>
-      <p>
-        La idea es hacer un fetch de datos desde la API del propio ayuntamiento
-        de Barcelona, que ofrece esta información.
-      </p>
-      <p>
-        La información se mostrará en forma de puntos en un mapa ubicando las
-        coordenadas o bien en formato de lista.
-      </p>
-      <p>
-        La web también va a incluir un input donde introducir la localización, y
-        si no es muy complicado, pedir permisos al usuario para ubicarle de
-        forma automática.
-      </p>
-      <p>Principalmente estará optimizada para mobile.</p>
-      <div>
+
+      <select name="districts" id="districtsSelector"></select>
+
+      <div class="container" id="items-list"></div>
+      <!-- <div>
         <button>🗺️ Map</button>
         <button>📋 List</button>
-      </div>
+      </div> -->
     </header>
     <div id="map"></div>
   </body>
