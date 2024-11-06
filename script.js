@@ -409,12 +409,15 @@ makeDistrictSelectorOptions(markers);
 // Get filtered markers
 let filteredMarkers = filterMarkersByDistrict(selector.value || "All", markers);
 
+const storedDistrict = localStorage.getItem("selectedDistrict");
+selector.value = storedDistrict || "All";
+
 // Update the map when the selector value changes
 selector.onchange = () => {
   filteredMarkers = filterMarkersByDistrict(selector.value || "All", markers);
   updateMap(filteredMarkers);
+  localStorage.setItem("selectedDistrict", selector.value);
 };
-
 
 let map;
 let markersArray = [];
