@@ -21,6 +21,14 @@ body {
   color: #fff;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5 {
+  margin: 0;
+}
+
 h1 {
   font-size: 3rem;
   font-family: "Honk", system-ui;
@@ -55,4 +63,20 @@ select {
 
 .gm-style-iw-d {
   color: #000;
+}
+
+#infoWindow {
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+#infoWindow-body-address {
+  display: flex;
+  gap: 4px;
+}
+
+#address-title {
+  font-weight: 700;
 }
