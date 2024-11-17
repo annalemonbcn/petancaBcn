@@ -21,12 +21,25 @@ body {
   color: #fff;
 }
 
+i {
+  color: black;
+}
+
+body,
+form,
+fieldset,
+ol,
+ul,
+li,
 h1,
 h2,
 h3,
 h4,
-h5 {
+h5,
+h6,
+p {
   margin: 0;
+  padding: 0;
 }
 
 h1 {
@@ -56,6 +69,10 @@ select {
   align-items: center;
 }
 
+#districtSelector-title {
+  padding: 16px;
+}
+
 #map {
   height: 60vh;
   width: 100%;
@@ -69,7 +86,25 @@ select {
   min-width: 300px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
+}
+
+#infoWindow-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#infoWindow-header i {
+  font-size: 16px;
+  position: relative;
+  left: -4px;
+  cursor: pointer;
+  transition: transform 0.1s ease-in-out;
+}
+
+#infoWindow-header i:hover {
+  transform: scale(1.1);
 }
 
 #infoWindow-body-address {
