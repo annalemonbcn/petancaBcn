@@ -16,21 +16,27 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
-    <link rel="stylesheet" type="text/css" href="style.css" />
     <script type="module" src="script.js" defer /></script>
     <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBAIpnYbDik5oJO26IkzivjBLrd8v-iOPI"
       defer
     ></script>
+    <link rel="stylesheet" type="text/css" href="style.css" />
   </head>
   <body>
-    <header>
-      <h1>PetancaBCN</h1> 
-    </header>
-    <div class="section" id="section-districtSelector">
-      <p id="districtSelector-title">Select a district to filter the results on the map:</p>
-      <select name="districts" id="districtsSelector"></select>
+    <div id="loader" style="display: none;">
+      <img src="./src/media/loader.gif" alt="Loading...">
     </div>
-    <div id="map"></div>
+    
+    <div id="app-content">
+      <header>
+        <h1>PetancaBCN</h1> 
+      </header>
+      <div class="section" id="section-districtSelector">
+        <p id="districtSelector-title">Select a district to filter the results on the map:</p>
+        <select name="districts" id="districtsSelector"></select>
+      </div>
+      <div id="map"></div>
+    </div>
   </body>
 </html>

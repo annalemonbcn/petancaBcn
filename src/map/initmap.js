@@ -84,8 +84,8 @@ function initMap(filteredMarkers) {
   map = new google.maps.Map(document.getElementById("map"), {
     zoom: 12,
     center: {
-      lat: filteredMarkers[5].coordinates.lat,
-      lng: filteredMarkers[5].coordinates.long,
+      lat: filteredMarkers.at(5).coordinates.lat,
+      lng: filteredMarkers.at(5).coordinates.long,
     },
     mapTypeControl: false,
   });
