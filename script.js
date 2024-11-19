@@ -1,14 +1,10 @@
+import { dataToMarkers } from "./src/api/dataToMarkers.js";
 import { fetchAllRecords } from "./src/api/fetchAllRecords.js";
 import { filterMarkersByDistrict } from "./src/map/filterMarkersByDistrict.js";
 import { initMap, updateMap } from "./src/map/initmap.js";
 import { makeDistrictSelectorOptions } from "./src/ui/selectors.js";
-import { dataToMarkers } from "./src/utils/utils.js";
-
-const PROXY_URL = "https://tranquil-bayou-06812-3a79cb983c1d.herokuapp.com/";
-const API_URL =
-  "https://opendata-ajuntament.barcelona.cat/data/api/action/datastore_search";
-
-let markers = [];
+import { toggleLoader } from "./src/utils/utils.js";
+import { PROXY_URL, API_URL } from "./src/vars/index.js";
 
 async function initApp() {
   try {
@@ -16,9 +12,18 @@ async function initApp() {
     const params =
       "?resource_id=6409e71a-6c79-4d21-9c14-373dbd01f26d&q=pistes+municipals+de+petanca";
 
+    toggleLoader(true);
+
     // Fetch markers
     const allRecords = await fetchAllRecords(baseUrl + params);
-    markers = dataToMarkers(allRecords);
+    let markers = dataToMarkers(allRecords);
+
+    toggleLoader(false);
+    // setTimeout(() => {
+    //   document.getElementById("app-content").classList.add("show");
+    // }, 100);
+
+    document.getElementById("app-content").classList.add("show");
 
     // Initialize selector + create options
     const selector = document.getElementById("districtsSelector");
@@ -45,6 +50,7 @@ async function initApp() {
     initMap(filteredMarkers);
   } catch (error) {
     console.error("Error initializing app:", error);
+    toggleLoader(false);
   }
 }
 
