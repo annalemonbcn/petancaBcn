@@ -17,6 +17,7 @@ async function initApp() {
     // Fetch markers
     const allRecords = await fetchAllRecords(baseUrl + params);
     let markers = dataToMarkers(allRecords);
+    console.log('markers', markers)
 
     toggleLoader(false);
 
@@ -38,12 +39,16 @@ async function initApp() {
 
     // Update the map when the selector value changes
     selector.onchange = () => {
-      updateMap(filterMarkersByDistrict(selector.value || "All", markers));
+      updateMap(
+        filterMarkersByDistrict(selector.value || "All", markers),
+        markers,
+        selector.value || "All"
+      );
       localStorage.setItem("selectedDistrict", selector.value);
     };
 
     // Initialize map
-    initMap(filteredMarkers);
+    initMap(filteredMarkers, markers, selector.value || "All");
   } catch (error) {
     console.error("Error initializing app:", error);
     toggleLoader(false);

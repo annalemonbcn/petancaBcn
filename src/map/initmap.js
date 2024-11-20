@@ -1,6 +1,10 @@
 import { heart } from "../svg/heart.js";
 import { heartFill } from "../svg/heart-fill.js";
-import { addToFavourites } from "./utils.js";
+import {
+  addToFavourites,
+  filterMarkersByDistrict,
+  updateMarker,
+} from "./utils.js";
 
 let map;
 let markersInMap = [];
@@ -35,7 +39,7 @@ const initializeStreetView = (lat, lng) => {
   );
 };
 
-const updateMap = (filteredMarkers) => {
+const updateMap = (filteredMarkers, originalMarkers, selectorValue) => {
   // Clear existing markers
   markersInMap.forEach((marker) => marker.setMap(null));
   markersInMap = [];
@@ -85,7 +89,16 @@ const updateMap = (filteredMarkers) => {
     google.maps.event.addListenerOnce(infoWindow, "domready", () => {
       const heartContainer = document.getElementById("heart-container");
       heartContainer.addEventListener("click", () => {
+        // add to favs array
         addToFavourites(marker, favourites);
+        // update originalMarkers
+        updateMarker(marker.id, originalMarkers);
+        // updateMap with favs
+        updateMap(
+          filterMarkersByDistrict(selectorValue || "All", originalMarkers),
+          originalMarkers,
+          selectorValue
+        );
       });
     });
 
@@ -94,10 +107,12 @@ const updateMap = (filteredMarkers) => {
     });
 
     markersInMap.push(currMarker);
+
+    // updateMarker(currMarker, infoWindow);
   });
 };
 
-function initMap(filteredMarkers) {
+function initMap(filteredMarkers, originalMarkers, selectorValue) {
   map = new google.maps.Map(document.getElementById("map"), {
     zoom: 12,
     center: {
@@ -107,7 +122,7 @@ function initMap(filteredMarkers) {
     mapTypeControl: false,
   });
 
-  updateMap(filteredMarkers);
+  updateMap(filteredMarkers, originalMarkers, selectorValue);
 }
 
 export { initMap, updateMap };
