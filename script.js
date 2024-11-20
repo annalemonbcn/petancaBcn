@@ -1,6 +1,6 @@
 import { dataToMarkers } from "./src/api/dataToMarkers.js";
 import { fetchAllRecords } from "./src/api/fetchAllRecords.js";
-import { filterMarkersByDistrict } from "./src/map/filterMarkersByDistrict.js";
+import { filterMarkersByDistrict } from "./src/map/utils.js";
 import { initMap, updateMap } from "./src/map/initmap.js";
 import { makeDistrictSelectorOptions } from "./src/ui/selectors.js";
 import { toggleLoader } from "./src/utils/utils.js";

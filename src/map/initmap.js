@@ -1,8 +1,11 @@
 import { heart } from "../svg/heart.js";
+import { heartFill } from "../svg/heart-fill.js";
+import { addToFavourites } from "./utils.js";
 
 let map;
 let markersInMap = [];
 let openInfoWindow = undefined;
+let favourites = [];
 
 const initializeStreetView = (lat, lng) => {
   const streetViewService = new google.maps.StreetViewService();
@@ -32,13 +35,13 @@ const initializeStreetView = (lat, lng) => {
   );
 };
 
-const updateMap = (markers) => {
+const updateMap = (filteredMarkers) => {
   // Clear existing markers
   markersInMap.forEach((marker) => marker.setMap(null));
   markersInMap = [];
 
   // Add new markers
-  markers.forEach((marker) => {
+  filteredMarkers.forEach((marker) => {
     const currMarker = new google.maps.Marker({
       position: {
         lat: marker.coordinates.lat,
@@ -49,12 +52,14 @@ const updateMap = (markers) => {
 
     const markerAddress = `${marker.address.road_name}, ${marker.address.street_number}, ${marker.address.zip_code}, ${marker.address.district_name}`;
 
+    const heartIcon = marker.isFav ? heartFill : heart;
+
     const contentString =
       '<div id="infoWindow">' +
       '<div id="infoWindow-header">' +
       `<h3 id="infoWindow-header-title">${marker.name}</h3>` +
-      '<div onclick="() => console.log(`heart clicked`)">' +
-      heart +
+      '<div id="heart-container">' +
+      heartIcon +
       "</div>" +
       "</div>" +
       '<div id="infoWindow-body-address">' +
@@ -62,7 +67,7 @@ const updateMap = (markers) => {
       `<p id="address-body">${markerAddress}</p>` +
       "</div>" +
       '<div id="street-view-container" style="width: 100%; height: 150px;"></div>' +
-      `<div><a href="https://www.google.com/maps/dir/?api=1&destination=${markerAddress}" target="_blank">Take me there</a></div>`;
+      `<div id="infoWindow-link"><a href="https://www.google.com/maps/dir/?api=1&destination=${markerAddress}" target="_blank">Take me there</a></div>`;
 
     const infoWindow = new google.maps.InfoWindow({
       content: contentString,
@@ -74,6 +79,14 @@ const updateMap = (markers) => {
 
       infoWindow.open(map, currMarker);
       openInfoWindow = infoWindow;
+    });
+
+    // Add event listener after InfoWindow is opened
+    google.maps.event.addListenerOnce(infoWindow, "domready", () => {
+      const heartContainer = document.getElementById("heart-container");
+      heartContainer.addEventListener("click", () => {
+        addToFavourites(marker, favourites);
+      });
     });
 
     google.maps.event.addListenerOnce(infoWindow, "domready", () => {
@@ -94,7 +107,6 @@ function initMap(filteredMarkers) {
     mapTypeControl: false,
   });
 
-  // filteredMarkers = filterMarkersByDistrict(selector.value || "All", markers);
   updateMap(filteredMarkers);
 }
 

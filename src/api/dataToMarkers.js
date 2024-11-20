@@ -14,6 +14,7 @@ const dataToMarkers = (data) =>
       street_number: marker.addresses_start_street_number,
       zip_code: `0${marker.addresses_zip_code}`,
     },
+    isFav: false,
   }));
 
 export { dataToMarkers };
