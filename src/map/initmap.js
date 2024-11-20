@@ -1,3 +1,5 @@
+import { heart } from "../svg/heart.js";
+
 let map;
 let markersInMap = [];
 let openInfoWindow = undefined;
@@ -51,7 +53,9 @@ const updateMap = (markers) => {
       '<div id="infoWindow">' +
       '<div id="infoWindow-header">' +
       `<h3 id="infoWindow-header-title">${marker.name}</h3>` +
-      '<i class="far fa-heart"></i>' +
+      '<div onclick="() => console.log(`heart clicked`)">' +
+      heart +
+      "</div>" +
       "</div>" +
       '<div id="infoWindow-body-address">' +
       '<p id="address-title">Address:</p>' +

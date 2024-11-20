@@ -19,9 +19,6 @@ async function initApp() {
     let markers = dataToMarkers(allRecords);
 
     toggleLoader(false);
-    // setTimeout(() => {
-    //   document.getElementById("app-content").classList.add("show");
-    // }, 100);
 
     document.getElementById("app-content").classList.add("show");
 
@@ -41,7 +38,6 @@ async function initApp() {
 
     // Update the map when the selector value changes
     selector.onchange = () => {
-      // TODO: not working ?
       updateMap(filterMarkersByDistrict(selector.value || "All", markers));
       localStorage.setItem("selectedDistrict", selector.value);
     };
