@@ -1,7 +1,7 @@
 import { heart } from "../svg/heart.js";
 import { heartFill } from "../svg/heart-fill.js";
 import {
-  addToFavourites,
+  toggleFavourite,
   filterMarkersByDistrict,
   updateMarker,
 } from "./utils.js";
@@ -9,7 +9,6 @@ import {
 let map;
 let markersInMap = [];
 let openInfoWindow = undefined;
-let favourites = [];
 
 const initializeStreetView = (lat, lng) => {
   const streetViewService = new google.maps.StreetViewService();
@@ -90,7 +89,7 @@ const updateMap = (filteredMarkers, originalMarkers, selectorValue) => {
       const heartContainer = document.getElementById("heart-container");
       heartContainer.addEventListener("click", () => {
         // add to favs array
-        addToFavourites(marker, favourites);
+        toggleFavourite(marker);
         // update originalMarkers
         updateMarker(marker.id, originalMarkers);
         // updateMap with favs

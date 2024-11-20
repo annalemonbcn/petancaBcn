@@ -13,4 +13,8 @@ const getAllFavourites = () => {
   return favourites;
 };
 
-export { getAllFavourites };
+const removeFavourite = (favId) => {
+  localStorage.removeItem(`${FAVORITES_KEY_PREFIX}${favId}`);
+};
+
+export { getAllFavourites, removeFavourite };

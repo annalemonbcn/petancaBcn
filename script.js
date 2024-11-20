@@ -17,7 +17,6 @@ async function initApp() {
     // Fetch markers
     const allRecords = await fetchAllRecords(baseUrl + params);
     let markers = dataToMarkers(allRecords);
-    console.log('markers', markers)
 
     toggleLoader(false);
 
