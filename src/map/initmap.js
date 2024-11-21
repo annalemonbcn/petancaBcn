@@ -115,8 +115,8 @@ function initMap(filteredMarkers, originalMarkers, selectorValue) {
   map = new google.maps.Map(document.getElementById("map"), {
     zoom: 12,
     center: {
-      lat: filteredMarkers.at(5).coordinates.lat,
-      lng: filteredMarkers.at(5).coordinates.long,
+      lat: filteredMarkers.at(0).coordinates.lat,
+      lng: filteredMarkers.at(0).coordinates.long,
     },
     mapTypeControl: false,
   });

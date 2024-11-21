@@ -4,7 +4,7 @@ const headerItems = [
   {
     id: "header-favs",
     content: `
-      <div>${glassesWhite}</div>
+      ${glassesWhite}
       <p>favs</p>
     `,
   },

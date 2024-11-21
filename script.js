@@ -3,12 +3,14 @@ import { fetchAllRecords } from "./src/api/fetchAllRecords.js";
 import { filterMarkersByDistrict } from "./src/map/utils.js";
 import { initMap, updateMap } from "./src/map/initmap.js";
 import { makeDistrictSelectorOptions } from "./src/ui/selectors.js";
-import { toggleLoader } from "./src/utils/utils.js";
+import { toggleLoader, toggleShowFavs } from "./src/utils/utils.js";
 import { PROXY_URL, API_URL } from "./src/vars/index.js";
 import { createHeader } from "./src/utils/header.js";
 
 async function initApp() {
+  let useFavs = false;
   createHeader();
+
   try {
     const baseUrl = PROXY_URL + API_URL;
     const params =
@@ -32,14 +34,15 @@ async function initApp() {
     const storedDistrict = localStorage.getItem("selectedDistrict");
     selector.value = storedDistrict || "All";
 
-    // Filter markers by selector value
-    let filteredMarkers = filterMarkersByDistrict(
-      selector.value || "All",
-      markers
-    );
+    const favsButton = document.getElementById("header-favs");
+    favsButton.onclick = () => {
+      useFavs = !useFavs;
+      toggleShowFavs(useFavs, markers, selector);
+    };
 
     // Update the map when the selector value changes
     selector.onchange = () => {
+      useFavs = false;
       updateMap(
         filterMarkersByDistrict(selector.value || "All", markers),
         markers,
@@ -49,7 +52,11 @@ async function initApp() {
     };
 
     // Initialize map
-    initMap(filteredMarkers, markers, selector.value || "All");
+    initMap(
+      filterMarkersByDistrict(selector.value || "All", markers),
+      markers,
+      selector.value || "All"
+    );
   } catch (error) {
     console.error("Error initializing app:", error);
     toggleLoader(false);
