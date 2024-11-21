@@ -5,8 +5,10 @@ import { initMap, updateMap } from "./src/map/initmap.js";
 import { makeDistrictSelectorOptions } from "./src/ui/selectors.js";
 import { toggleLoader } from "./src/utils/utils.js";
 import { PROXY_URL, API_URL } from "./src/vars/index.js";
+import { createHeader } from "./src/utils/header.js";
 
 async function initApp() {
+  createHeader();
   try {
     const baseUrl = PROXY_URL + API_URL;
     const params =

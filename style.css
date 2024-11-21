@@ -17,11 +17,18 @@ header {
 
 header > div {
   flex: 1;
-  /* text-align: center; */
 }
 
 #header-h1 {
   text-align: center;
+}
+
+header #header-favs {
+  display: flex;
+  gap: 8px;
+  text-decoration: underline;
+  cursor: pointer;
+  /* align-items: center; */
 }
 
 #header-bookings {
