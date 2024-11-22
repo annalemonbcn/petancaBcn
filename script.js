@@ -14,7 +14,7 @@ async function initApp() {
   try {
     const baseUrl = PROXY_URL + API_URL;
     const params =
-      "?resource_id=6409e71a-6c79-4d21-9c14-373dbd01f26d&q=pistes+municipals+de+petanca";
+      "?resource_id=6409e71a-6c79-4d21-9c14-373dbd01f26d&q=pist+petanca";
 
     toggleLoader(true);
 

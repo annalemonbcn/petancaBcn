@@ -1,9 +1,24 @@
 import { getAllFavourites } from "../utils/localStorage.js";
 
+const removeDuplicates = (markers) => {
+  const cleanMarkers = [];
+  const seenCombinations = new Set();
+
+  return markers.filter((marker) => {
+    const combination = `${marker.address.road_name}_${marker.address.street_number}`;
+    if (!seenCombinations.has(combination)) {
+      cleanMarkers.push(marker);
+      seenCombinations.add(combination);
+      return true;
+    }
+    return false;
+  });
+};
+
 const dataToMarkers = (data) => {
   const favourites = getAllFavourites();
 
-  return data.map((marker) => {
+  const markers = data.map((marker) => {
     const isFav = favourites.find((fav) => fav.id === marker._id)
       ? true
       : false;
@@ -26,6 +41,8 @@ const dataToMarkers = (data) => {
       isFav,
     };
   });
+
+  return removeDuplicates(markers);
 };
 
 export { dataToMarkers };
