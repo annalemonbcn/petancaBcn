@@ -1,44 +1,3 @@
-html {
-  box-sizing: border-box;
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: inherit;
-}
-
-body {
-  font-family: "Roboto", sans-serif;
-  background-color: #000;
-  color: #fff;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-i {
-  color: black;
-}
-
-body,
-form,
-fieldset,
-ol,
-ul,
-li,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p {
-  margin: 0;
-  padding: 0;
-}
-
 h1 {
   font-size: 3rem;
   font-family: "Honk", system-ui;
@@ -46,6 +5,34 @@ h1 {
   font-weight: 400;
   font-style: normal;
   font-variation-settings: "MORF" 15, "SHLN" 50;
+}
+
+header {
+  width: 100%;
+  padding: 32px 32px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header > div {
+  flex: 1;
+}
+
+#header-h1 {
+  text-align: center;
+}
+
+header #header-favs {
+  display: flex;
+  gap: 8px;
+  text-decoration: underline;
+  cursor: pointer;
+  /* align-items: center; */
+}
+
+#header-bookings {
+  text-align: right;
 }
 
 #app-content {
@@ -63,6 +50,8 @@ h1 {
 }
 
 select {
+  font-family: "VT323", sans-serif;
+
   display: flex;
   min-width: 150px;
   background-color: #09090b;
@@ -71,7 +60,7 @@ select {
   border-radius: 6px;
   border: 1px solid #27272a;
   padding: 8px;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 #section-districtSelector {
@@ -82,47 +71,4 @@ select {
 
 #districtSelector-title {
   padding: 16px;
-}
-
-#map {
-  height: 60vh;
-  width: 100%;
-}
-
-.gm-style-iw-d {
-  color: #000;
-}
-
-#infoWindow {
-  min-width: 300px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-#infoWindow-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-#infoWindow-header i {
-  font-size: 16px;
-  position: relative;
-  left: -4px;
-  cursor: pointer;
-  transition: transform 0.1s ease-in-out;
-}
-
-#infoWindow-header i:hover {
-  transform: scale(1.1);
-}
-
-#infoWindow-body-address {
-  display: flex;
-  gap: 4px;
-}
-
-#address-title {
-  font-weight: 700;
 }

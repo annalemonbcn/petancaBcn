@@ -1,3 +1,11 @@
+import { heart } from "../svg/heart.js";
+import { heartFill } from "../svg/heart-fill.js";
+import {
+  toggleFavourite,
+  filterMarkersByDistrict,
+  updateMarker,
+} from "./utils.js";
+
 let map;
 let markersInMap = [];
 let openInfoWindow = undefined;
@@ -30,13 +38,13 @@ const initializeStreetView = (lat, lng) => {
   );
 };
 
-const updateMap = (markers) => {
+const updateMap = (filteredMarkers, originalMarkers, selectorValue) => {
   // Clear existing markers
   markersInMap.forEach((marker) => marker.setMap(null));
   markersInMap = [];
 
   // Add new markers
-  markers.forEach((marker) => {
+  filteredMarkers.forEach((marker) => {
     const currMarker = new google.maps.Marker({
       position: {
         lat: marker.coordinates.lat,
@@ -47,18 +55,22 @@ const updateMap = (markers) => {
 
     const markerAddress = `${marker.address.road_name}, ${marker.address.street_number}, ${marker.address.zip_code}, ${marker.address.district_name}`;
 
+    const heartIcon = marker.isFav ? heartFill : heart;
+
     const contentString =
       '<div id="infoWindow">' +
       '<div id="infoWindow-header">' +
       `<h3 id="infoWindow-header-title">${marker.name}</h3>` +
-      '<i class="far fa-heart"></i>' +
+      '<div id="heart-container">' +
+      heartIcon +
+      "</div>" +
       "</div>" +
       '<div id="infoWindow-body-address">' +
       '<p id="address-title">Address:</p>' +
       `<p id="address-body">${markerAddress}</p>` +
       "</div>" +
       '<div id="street-view-container" style="width: 100%; height: 150px;"></div>' +
-      `<div><a href="https://www.google.com/maps/dir/?api=1&destination=${markerAddress}" target="_blank">Take me there</a></div>`;
+      `<div id="infoWindow-link"><a href="https://www.google.com/maps/dir/?api=1&destination=${markerAddress}" target="_blank">Take me there</a></div>`;
 
     const infoWindow = new google.maps.InfoWindow({
       content: contentString,
@@ -72,26 +84,44 @@ const updateMap = (markers) => {
       openInfoWindow = infoWindow;
     });
 
+    // Add event listener after InfoWindow is opened
+    google.maps.event.addListenerOnce(infoWindow, "domready", () => {
+      const heartContainer = document.getElementById("heart-container");
+      heartContainer.addEventListener("click", () => {
+        // add to favs array
+        toggleFavourite(marker);
+        // update originalMarkers
+        updateMarker(marker.id, originalMarkers);
+        // updateMap with favs
+        updateMap(
+          filterMarkersByDistrict(selectorValue || "All", originalMarkers),
+          originalMarkers,
+          selectorValue
+        );
+      });
+    });
+
     google.maps.event.addListenerOnce(infoWindow, "domready", () => {
       initializeStreetView(marker.coordinates.lat, marker.coordinates.long);
     });
 
     markersInMap.push(currMarker);
+
+    // updateMarker(currMarker, infoWindow);
   });
 };
 
-function initMap(filteredMarkers) {
+function initMap(filteredMarkers, originalMarkers, selectorValue) {
   map = new google.maps.Map(document.getElementById("map"), {
     zoom: 12,
     center: {
-      lat: filteredMarkers.at(5).coordinates.lat,
-      lng: filteredMarkers.at(5).coordinates.long,
+      lat: filteredMarkers.at(0).coordinates.lat,
+      lng: filteredMarkers.at(0).coordinates.long,
     },
     mapTypeControl: false,
   });
 
-  // filteredMarkers = filterMarkersByDistrict(selector.value || "All", markers);
-  updateMap(filteredMarkers);
+  updateMap(filteredMarkers, originalMarkers, selectorValue);
 }
 
 export { initMap, updateMap };
