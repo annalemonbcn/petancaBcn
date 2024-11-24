@@ -5,6 +5,7 @@ import {
   filterMarkersByDistrict,
   updateMarker,
 } from "./utils.js";
+import { closeModal, openModal } from "../modal/index.js";
 
 let map;
 let markersInMap = [];
@@ -91,7 +92,7 @@ const updateMap = (filteredMarkers, originalMarkers, selectorValue) => {
     // Add event listener after InfoWindow is opened
     google.maps.event.addListenerOnce(infoWindow, "domready", () => {
       const heartContainer = document.getElementById("heart-container");
-      heartContainer.addEventListener("click", () => {
+      heartContainer.onclick = () => {
         // add to favs array
         toggleFavourite(marker);
         // update originalMarkers
@@ -102,28 +103,27 @@ const updateMap = (filteredMarkers, originalMarkers, selectorValue) => {
           originalMarkers,
           selectorValue
         );
-      });
+      };
 
       const trigger = document.getElementById("btn-openModal");
       // Open modal
       trigger.onclick = () => {
-        bookingModal.style.display = "block";
+        openModal(bookingModal, marker);
       };
 
       // Close modal
       icoClose.onclick = () => {
-        bookingModal.style.display = "none";
+        closeModal(bookingModal);
       };
 
       // Close the modal if click anywhere outside of the modal
       window.onclick = (event) => {
         if (event.target == bookingModal) {
-          bookingModal.style.display = "none";
+          closeModal(bookingModal);
         }
       };
-    });
 
-    google.maps.event.addListenerOnce(infoWindow, "domready", () => {
+      // Street View service
       initializeStreetView(marker.coordinates.lat, marker.coordinates.long);
     });
 

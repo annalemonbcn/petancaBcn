@@ -25,7 +25,6 @@
       defer
     ></script>
     <script type="module" src="script.js" defer></script>
-    <script type="module" src="src/modal/index.js" defer></script>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css"
@@ -50,16 +49,13 @@
         <select name="districts" id="districtsSelector"></select>
       </div>
       <div class="section" id="map"></div>
-      <!-- <button id="btn-openModal">Open Modal</button> -->
 
       <div id="modal-booking" class="modal">
         <div class="modal-content">
-          <div class="modal-header">
+          <div id="modal-header">
             <span id="ico-close">&times;</span>
           </div>
-          <div class="modal-body">
-            <p>Some text in the Modal..</p>
-          </div>
+          <div id="modal-body"></div>
         </div>
       </div>
     </div>
