@@ -25,15 +25,16 @@
       defer
     ></script>
     <script type="module" src="script.js" defer></script>
-    <script src="src/modal/index.js" defer></script>
+    <script type="module" src="src/modal/index.js" defer></script>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css"
     />
     <link rel="stylesheet" type="text/css" href="src/css/reset.css" />
     <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" type="text/css" href="src/css/buttons.css" />
     <link rel="stylesheet" type="text/css" href="src/css/libraries.css" />
-    <link rel="stylesheet" type="text/css" href="src/css/modal.css" />
+    <link rel="stylesheet" type="text/css" href="src/modal/index.css" />
   </head>
   <body>
     <div id="loader" style="display: none">
@@ -49,7 +50,7 @@
         <select name="districts" id="districtsSelector"></select>
       </div>
       <div class="section" id="map"></div>
-      <button id="btn-openModal">Open Modal</button>
+      <!-- <button id="btn-openModal">Open Modal</button> -->
 
       <div id="modal-booking" class="modal">
         <div class="modal-content">

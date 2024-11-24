@@ -70,7 +70,11 @@ const updateMap = (filteredMarkers, originalMarkers, selectorValue) => {
       `<p id="address-body">${markerAddress}</p>` +
       "</div>" +
       '<div id="street-view-container" style="width: 100%; height: 150px;"></div>' +
+      `<div id="infoWindow-button"><div id="btn-openModal" class="btn-retro">Book track</div></div>` +
       `<div id="infoWindow-link"><a href="https://www.google.com/maps/dir/?api=1&destination=${markerAddress}" target="_blank">Take me there</a></div>`;
+
+    const bookingModal = document.getElementById("modal-booking");
+    const icoClose = document.getElementById("ico-close");
 
     const infoWindow = new google.maps.InfoWindow({
       content: contentString,
@@ -99,6 +103,24 @@ const updateMap = (filteredMarkers, originalMarkers, selectorValue) => {
           selectorValue
         );
       });
+
+      const trigger = document.getElementById("btn-openModal");
+      // Open modal
+      trigger.onclick = () => {
+        bookingModal.style.display = "block";
+      };
+
+      // Close modal
+      icoClose.onclick = () => {
+        bookingModal.style.display = "none";
+      };
+
+      // Close the modal if click anywhere outside of the modal
+      window.onclick = (event) => {
+        if (event.target == bookingModal) {
+          bookingModal.style.display = "none";
+        }
+      };
     });
 
     google.maps.event.addListenerOnce(infoWindow, "domready", () => {
@@ -106,8 +128,6 @@ const updateMap = (filteredMarkers, originalMarkers, selectorValue) => {
     });
 
     markersInMap.push(currMarker);
-
-    // updateMarker(currMarker, infoWindow);
   });
 };
 

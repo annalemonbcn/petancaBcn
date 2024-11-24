@@ -68,3 +68,17 @@ h1 {
   font-style: normal;
   font-variation-settings: "MORF" 15, "SHLN" 50;
 }
+
+select {
+  font-family: "VT323", sans-serif;
+
+  display: flex;
+  min-width: 150px;
+  background-color: #09090b;
+  color: white;
+
+  border-radius: 6px;
+  border: 1px solid #27272a;
+  padding: 8px;
+  font-size: 16px;
+}
