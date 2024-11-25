@@ -5,43 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PetancaBCN - Home</title>
 
-    <link rel="icon" type="image/png" href="./src/media/favicon.png">
+    <link rel="icon" type="image/png" href="./src/media/favicon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Honk&display=swap"
       rel="stylesheet"
     />
-    <!-- <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    <link
+      href="https://fonts.googleapis.com/css2?family=VT323&display=swap"
       rel="stylesheet"
-    /> -->
-    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
-    <!-- TODO: quitar si no se usa fontawesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    />
     <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBAIpnYbDik5oJO26IkzivjBLrd8v-iOPI"
       defer
     ></script>
-    <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js" defer></script>
-    <script type="module" src="script.js" defer /></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+    <script
+      src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"
+      defer
+    ></script>
+    <script type="module" src="script.js" defer></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css"
+    />
     <link rel="stylesheet" type="text/css" href="src/css/reset.css" />
     <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" type="text/css" href="src/css/buttons.css" />
     <link rel="stylesheet" type="text/css" href="src/css/libraries.css" />
+    <link rel="stylesheet" type="text/css" href="src/modal/index.css" />
   </head>
   <body>
-    <div id="loader" style="display: none;">
-      <img src="./src/media/loading.gif" alt="Loading...">
+    <div id="loader" style="display: none">
+      <img src="./src/media/loading.gif" alt="Loading..." />
     </div>
-    
+
     <div id="app-content">
       <header></header>
       <div class="section" id="section-districtSelector">
-        <p id="districtSelector-title">Select a district to filter the results on the map:</p>
+        <p id="districtSelector-title">
+          Select a district to filter the results on the map:
+        </p>
         <select name="districts" id="districtsSelector"></select>
       </div>
       <div class="section" id="map"></div>
+
+      <div id="modal-booking" class="modal">
+        <div class="modal-content">
+          <div id="modal-header">
+            <span id="ico-close">&times;</span>
+          </div>
+          <div id="modal-body"></div>
+        </div>
+      </div>
     </div>
   </body>
 </html>
