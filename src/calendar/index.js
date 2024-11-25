@@ -1,17 +1,18 @@
 import { checkToday } from "./utils.js";
 
-let display = document.querySelector(".display");
-let previous = document.querySelector(".left");
-let next = document.querySelector(".right");
-let days = document.querySelector(".days");
-let selected = document.querySelector(".selected");
+const display = document.querySelector(".display");
+const previous = document.querySelector(".left");
+const next = document.querySelector(".right");
+const days = document.querySelector(".days");
+const selected = document.querySelector(".selected");
 
-let date = new Date();
-let year = date.getFullYear();
-let month = date.getMonth();
+const dateToday = new Date();
+const year = dateToday.getFullYear();
+let month = dateToday.getMonth();
+let currentlySelectedDay = null;
 
 const displayCalendar = () => {
-  let formattedDate = date.toLocaleString("en-US", {
+  let formattedDate = dateToday.toLocaleString("en-US", {
     month: "long",
     year: "numeric",
   });
@@ -22,20 +23,28 @@ const displayCalendar = () => {
   const lastDay = new Date(year, month + 1, 0);
   const numberOfDays = lastDay.getDate();
 
+  const yesterday = new Date(new Date().valueOf() - 1000 * 60 * 60 * 24);
+
+  // Create each day container
   for (let x = 0; x < firstDayIndex; x++) {
     const dayContainer = document.createElement("div");
     dayContainer.innerHTML += "";
     days.appendChild(dayContainer);
   }
 
+  // Fill day numbers
   for (let i = 1; i <= numberOfDays; i++) {
-    let div = document.createElement("div");
-    let currentDate = new Date(year, month, i);
-    div.dataset.date = currentDate.toDateString();
+    const div = document.createElement("div");
+    const date = new Date(year, month, i);
     div.innerHTML += i;
+    div.dataset.date = date.toDateString();
     days.appendChild(div);
 
-    if (checkToday(currentDate)) div.classList.add("current-date");
+    if (checkToday(date)) div.classList.add("current-date");
+
+    if (date < yesterday) {
+      div.classList.add("disabled");
+    }
   }
 };
 
@@ -44,8 +53,18 @@ const displaySelected = () => {
   dayElements.forEach((day) => {
     day.onclick = (e) => {
       const selectedDate = e.target.dataset.date;
+
+      // Remove class from previous selected day
+      if (currentlySelectedDay) {
+        currentlySelectedDay.classList.remove("selected-date");
+      }
+
+      // Add class to new selected day
+      e.target.classList.add("selected-date");
+      currentlySelectedDay = e.target;
+
+      // Display selected date
       selected.innerHTML = `Selected Date : ${selectedDate}`;
-      // day.classList.add("selected-date");
     };
   });
 };
@@ -58,8 +77,7 @@ previous.addEventListener("click", () => {
     year = year - 1;
   }
   month = month - 1;
-  console.log(month);
-  date.setMonth(month);
+  dateToday.setMonth(month);
   displayCalendar();
   displaySelected();
 });
@@ -72,7 +90,7 @@ next.addEventListener("click", () => {
     year = year + 1;
   }
   month = month + 1;
-  date.setMonth(month);
+  dateToday.setMonth(month);
   displayCalendar();
   displaySelected();
 });
