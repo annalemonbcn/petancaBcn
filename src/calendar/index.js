@@ -64,14 +64,14 @@ const displaySelected = () => {
       currentlySelectedDay = e.target;
 
       // Display selected date
-      selected.innerHTML = `Selected Date : ${selectedDate}`;
+      // selected.innerHTML = `Selected Date : ${selectedDate}`;
     };
   });
 };
 
 previous.addEventListener("click", () => {
   days.innerHTML = "";
-  selected.innerHTML = "";
+  // selected.innerHTML = "";
   if (month < 0) {
     month = 11;
     year = year - 1;
@@ -84,7 +84,7 @@ previous.addEventListener("click", () => {
 
 next.addEventListener("click", () => {
   days.innerHTML = "";
-  selected.innerHTML = "";
+  // selected.innerHTML = "";
   if (month > 11) {
     month = 0;
     year = year + 1;

@@ -35,7 +35,7 @@
     <link rel="stylesheet" type="text/css" href="src/css/buttons.css" />
     <link rel="stylesheet" type="text/css" href="src/css/libraries.css" />
     <link rel="stylesheet" type="text/css" href="src/modal/index.css" />
-    <link rel="stylesheet" type="text/css" href="src/calendar/index.css">
+    <link rel="stylesheet" type="text/css" href="src/calendar/index.css" />
   </head>
   <body>
     <div id="loader" style="display: none">
@@ -63,7 +63,6 @@
 
       <div id="calendar">
         <div class="container">
-          <div class="calendar">
             <header>
               <pre class="left">◀</pre>
               <div class="header-display">
@@ -71,22 +70,18 @@
               </div>
               <pre class="right">▶</pre>
             </header>
-            <div class="week">
-              <div>Mo</div>
-              <div>Tu</div>
-              <div>We</div>
-              <div>Th</div>
-              <div>Fr</div>
-              <div>Sa</div>
-              <div>Su</div>
+            <div id="picker">
+              <div class="week">
+                <div>Mo</div>
+                <div>Tu</div>
+                <div>We</div>
+                <div>Th</div>
+                <div>Fr</div>
+                <div>Sa</div>
+                <div>Su</div>
+              </div>
+              <div class="days"></div>
             </div>
-            <div class="days">
-              <!--days will be filled here-->
-            </div>
-          </div>
-          <div class="display-selected">
-            <p class="selected"></p>
-          </div>
         </div>
       </div>
     </div>
