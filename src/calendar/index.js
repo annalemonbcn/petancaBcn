@@ -1,32 +1,32 @@
-import { checkToday } from "./utils.js";
+import {
+  checkToday,
+  generateHours,
+  getMmonthAndYearFromDate,
+  isDisabledDate,
+} from "./utils.js";
 
-const display = document.querySelector(".display");
 const previous = document.querySelector(".left");
 const next = document.querySelector(".right");
 const days = document.querySelector(".days");
-const selected = document.querySelector(".selected");
+
+let currentlySelectedDay = null;
+let currentlySelectedHour = null;
 
 const dateToday = new Date();
-const year = dateToday.getFullYear();
+let year = dateToday.getFullYear();
 let month = dateToday.getMonth();
-let currentlySelectedDay = null;
 
 const displayCalendar = () => {
-  let formattedDate = dateToday.toLocaleString("en-US", {
-    month: "long",
-    year: "numeric",
-  });
-  display.innerHTML = `${formattedDate}`;
+  const displayElement = document.querySelector(".display");
+  displayElement.innerHTML = `${getMmonthAndYearFromDate(dateToday)}`;
 
   const firstDay = new Date(year, month, 1);
   const firstDayIndex = firstDay.getDay() - 1;
   const lastDay = new Date(year, month + 1, 0);
   const numberOfDays = lastDay.getDate();
 
-  const yesterday = new Date(new Date().valueOf() - 1000 * 60 * 60 * 24);
-
-  // Create each day container
-  for (let x = 0; x < firstDayIndex; x++) {
+  // Create empty days container at the beginning
+  for (let i = 0; i < firstDayIndex; i++) {
     const dayContainer = document.createElement("div");
     dayContainer.innerHTML += "";
     days.appendChild(dayContainer);
@@ -36,42 +36,78 @@ const displayCalendar = () => {
   for (let i = 1; i <= numberOfDays; i++) {
     const div = document.createElement("div");
     const date = new Date(year, month, i);
+    // console.log("date", date);
+
     div.innerHTML += i;
     div.dataset.date = date.toDateString();
-    days.appendChild(div);
 
     if (checkToday(date)) div.classList.add("current-date");
 
-    if (date < yesterday) {
-      div.classList.add("disabled");
-    }
+    if (isDisabledDate(date)) div.classList.add("disabled");
+
+    days.appendChild(div);
   }
+};
+
+const displayHours = () => {
+  const hours = generateHours();
+  // const currentHour = dateToday.getHours();
+
+  const timePicker = document.getElementById("picker-time");
+
+  hours.forEach((hour) => {
+    const hourContainer = document.createElement("div");
+    hourContainer.innerHTML = hour;
+    hourContainer.classList.add("hour");
+    hourContainer.dataset.time = hour;
+
+    // TODO: disable hours
+    // const generatedHour = hour.split(":").at(0);
+
+    // if (generatedHour <= currentHour) hourContainer.classList.add("disabled");
+
+    timePicker.appendChild(hourContainer);
+  });
+};
+
+const handleDayClick = (element) => {
+  // Remove class from previous selected day
+  if (currentlySelectedDay) {
+    currentlySelectedDay.classList.remove("selected-date");
+  }
+
+  // Add class to new selected day
+  element.classList.add("selected-date");
+  currentlySelectedDay = element;
+};
+
+const handleHourClick = (element) => {
+  // Remove class from previous selected time
+  if (currentlySelectedHour) {
+    currentlySelectedHour.classList.remove("selected-hour");
+  }
+
+  // Add clas to new selected hour
+  element.classList.add("selected-hour");
+  currentlySelectedHour = element;
 };
 
 const displaySelected = () => {
   const dayElements = document.querySelectorAll(".days div");
-  dayElements.forEach((day) => {
-    day.onclick = (e) => {
-      const selectedDate = e.target.dataset.date;
+  dayElements.forEach((day) => (day.onclick = (e) => handleDayClick(e.target)));
 
-      // Remove class from previous selected day
-      if (currentlySelectedDay) {
-        currentlySelectedDay.classList.remove("selected-date");
-      }
-
-      // Add class to new selected day
-      e.target.classList.add("selected-date");
-      currentlySelectedDay = e.target;
-
-      // Display selected date
-      // selected.innerHTML = `Selected Date : ${selectedDate}`;
-    };
-  });
+  const hourElements = document.querySelectorAll("#picker-time .hour");
+  hourElements.forEach(
+    (hour) => (hour.onclick = (e) => handleHourClick(e.target))
+  );
 };
+
+displayCalendar();
+displayHours();
+displaySelected();
 
 previous.addEventListener("click", () => {
   days.innerHTML = "";
-  // selected.innerHTML = "";
   if (month < 0) {
     month = 11;
     year = year - 1;
@@ -84,7 +120,6 @@ previous.addEventListener("click", () => {
 
 next.addEventListener("click", () => {
   days.innerHTML = "";
-  // selected.innerHTML = "";
   if (month > 11) {
     month = 0;
     year = year + 1;
@@ -94,6 +129,3 @@ next.addEventListener("click", () => {
   displayCalendar();
   displaySelected();
 });
-
-displayCalendar();
-displaySelected();

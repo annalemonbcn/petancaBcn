@@ -7,6 +7,22 @@
   --background: #d2d2d2;
 }
 
+#calendar .disabled {
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+#calendar .current-date {
+  background-color: var(--accent-2);
+  color: var(--black);
+}
+
+#calendar .selected-date,
+#calendar .selected-hour {
+  background: var(--accent);
+  color: var(--white);
+}
+
 #calendar .container {
   color: var(--black);
   background-color: var(--background);
@@ -36,10 +52,28 @@
   flex: auto;
 }
 
-#calendar #picker {
-  padding: 8px 16px;
+#calendar .calendar-body {
+  display: flex;
+  gap: 12px;
+  padding-bottom: 8px;
   border-radius: 8px;
   background-color: var(--white);
+}
+
+#calendar #picker-day {
+  padding-top: 8px;
+  padding-left: 16px;
+}
+
+#calendar .week div {
+  opacity: 0.5;
+}
+
+#calendar .days div:hover,
+#calendar #picker-time div:hover {
+  background: var(--accent-2);
+  color: var(--accent);
+  cursor: pointer;
 }
 
 #calendar .days,
@@ -57,32 +91,13 @@
   width: 2rem;
 }
 
-#calendar .days div:hover {
-  background: var(--accent-2);
-  color: var(--accent);
-  cursor: pointer;
-}
-#calendar .week div {
-  opacity: 0.5;
+#calendar #picker-time {
+  border-left: 1px solid var(--accent-2);
+  padding: 8px 16px 0 4px;
+  max-height: 210px;
+  overflow-y: scroll;
 }
 
-#calendar .current-date {
-  background-color: var(--accent-2);
-  color: var(--black);
-}
-
-#calendar .selected-date {
-  background: var(--accent);
-  color: var(--white);
-}
-
-#calendar .display-selected {
-  margin-bottom: 10px;
-  padding: 20px 20px;
-  text-align: center;
-}
-
-#calendar .disabled {
-  opacity: 0.2;
-  pointer-events: none;
+#picker-time div {
+  padding: 2px 8px;
 }
