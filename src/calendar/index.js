@@ -36,12 +36,14 @@ const displayCalendar = () => {
   for (let i = 1; i <= numberOfDays; i++) {
     const div = document.createElement("div");
     const date = new Date(year, month, i);
-    // console.log("date", date);
 
     div.innerHTML += i;
     div.dataset.date = date.toDateString();
 
-    if (checkToday(date)) div.classList.add("current-date");
+    if (checkToday(date)) {
+      div.classList.add("current-date");
+      currentlySelectedDay = div;
+    }
 
     if (isDisabledDate(date)) div.classList.add("disabled");
 
@@ -51,9 +53,10 @@ const displayCalendar = () => {
 
 const displayHours = () => {
   const hours = generateHours();
-  // const currentHour = dateToday.getHours();
+  const currentHour = dateToday.getHours();
 
   const timePicker = document.getElementById("picker-time");
+  timePicker.innerHTML = "";
 
   hours.forEach((hour) => {
     const hourContainer = document.createElement("div");
@@ -61,10 +64,16 @@ const displayHours = () => {
     hourContainer.classList.add("hour");
     hourContainer.dataset.time = hour;
 
-    // TODO: disable hours
-    // const generatedHour = hour.split(":").at(0);
+    if (currentlySelectedDay) {
+      const selectedDay = new Date(currentlySelectedDay.dataset.date);
+      const isToday = checkToday(selectedDay);
 
-    // if (generatedHour <= currentHour) hourContainer.classList.add("disabled");
+      if (isToday) {
+        const generatedHour = hour.split(":").at(0);
+        if (generatedHour <= currentHour)
+          hourContainer.classList.add("disabled");
+      }
+    }
 
     timePicker.appendChild(hourContainer);
   });
@@ -79,6 +88,7 @@ const handleDayClick = (element) => {
   // Add class to new selected day
   element.classList.add("selected-date");
   currentlySelectedDay = element;
+  displayHours();
 };
 
 const handleHourClick = (element) => {
