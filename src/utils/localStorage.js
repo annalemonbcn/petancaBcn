@@ -1,4 +1,5 @@
 export const FAVORITES_KEY_PREFIX = "favourite_";
+export const BOOKINGS_KEY_PREFIX = "booking_";
 
 const getAllFavourites = () => {
   const favourites = [];
@@ -17,4 +18,21 @@ const removeFavourite = (favId) => {
   localStorage.removeItem(`${FAVORITES_KEY_PREFIX}${favId}`);
 };
 
-export { getAllFavourites, removeFavourite };
+const getAllBookings = () => {
+  const bookings = [];
+
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (key.startsWith(BOOKINGS_KEY_PREFIX)) {
+      bookings.push(JSON.parse(localStorage.getItem(key)));
+    }
+  }
+
+  return bookings;
+};
+
+const removeBooking = (bookingId) => {
+  localStorage.removeItem(`${BOOKINGS_KEY_PREFIX}${bookingId}`);
+};
+
+export { getAllFavourites, removeFavourite, getAllBookings, removeBooking };

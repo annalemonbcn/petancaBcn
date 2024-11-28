@@ -7,6 +7,7 @@ import {
 import { notyf } from "../notyf/index.js";
 import { toggleView } from "../modal/utils.js";
 import { closeModal } from "../modal/index.js";
+import { BOOKINGS_KEY_PREFIX } from "../utils/localStorage.js";
 
 const previous = document.querySelector(".left");
 const next = document.querySelector(".right");
@@ -202,6 +203,7 @@ btnConfirm.onclick = () => {
 const bookButton = document.querySelector(".modal .btn-retro#book");
 bookButton.onclick = () => {
   const bookingData = {
+    id: modalBody.dataset.modalId,
     court: markerNameEl.innerHTML,
     day: currentlySelectedDay.dataset.date,
     hour: currentlySelectedHour.dataset.time,
@@ -209,7 +211,7 @@ bookButton.onclick = () => {
   try {
     // Save item in localStorage
     localStorage.setItem(
-      `booking_${modalBody.dataset.modalId}`,
+      `${BOOKINGS_KEY_PREFIX}${modalBody.dataset.modalId}`,
       JSON.stringify(bookingData)
     );
     const confirmation = notyf.success(
