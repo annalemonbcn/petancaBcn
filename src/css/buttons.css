@@ -19,6 +19,9 @@
   cursor: pointer;
   background-color: #da499d;
 }
+.btn-retro.btn-retro.secondary:hover {
+  background-color: #d6d6d6;
+}
 
 .btn-retro:active {
   top: 5px;
