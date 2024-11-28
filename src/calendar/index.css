@@ -23,11 +23,22 @@
   color: var(--white);
 }
 
+#calendar {
+  margin-top: 12px;
+  text-align: center;
+}
+
+#calendar > p {
+  text-align: left;
+}
+
 #calendar .container {
+  display: inline-block;
   color: var(--black);
   background-color: var(--background);
   border-radius: 8px;
   padding: 0 3px 3px;
+  margin-top: 8px;
 }
 
 #calendar header {
@@ -100,4 +111,9 @@
 
 #picker-time div {
   padding: 2px 8px;
+}
+
+.calendar-selected {
+  margin: 8px;
+  text-align: left;
 }

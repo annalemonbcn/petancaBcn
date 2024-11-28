@@ -1,10 +1,8 @@
 const openModal = (bookingModal, marker) => {
   bookingModal.style.display = "block";
 
-  const modalBody = document.getElementById("modal-body");
-  modalBody.innerHTML = `
-        <h2>Book track "${marker.name}"</h2>
-    `;
+  const markerNameEl = document.querySelector(".modal .marker-name");
+  markerNameEl.innerHTML = marker.name;
 };
 
 const closeModal = (bookingModal) => {

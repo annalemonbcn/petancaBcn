@@ -57,33 +57,36 @@
           <div id="modal-header">
             <span id="ico-close">&times;</span>
           </div>
-          <div id="modal-body"></div>
-        </div>
-      </div>
-
-      <div id="calendar">
-        <div class="container">
-          <header>
-            <pre class="left">◀</pre>
-            <div class="header-display">
-              <p class="display">""</p>
+          <div id="modal-body">
+            <h2>Book court <span class="marker-name"></span></h2>
+            <div>
+              <p>You can make a reservation for this court.</p>
+              <p>Reservations last for one hour.</p>
             </div>
-            <pre class="right">▶</pre>
-          </header>
-          <div class="calendar-body">
-            <div id="picker-day">
-              <div class="week">
-                <div>Mo</div>
-                <div>Tu</div>
-                <div>We</div>
-                <div>Th</div>
-                <div>Fr</div>
-                <div>Sa</div>
-                <div>Su</div>
+            <div id="calendar">
+              <p>Select a day and time:</p>
+              <div class="container">
+                <header>
+                  <pre class="left">◀</pre>
+                  <div class="header-display">
+                    <p class="display">""</p>
+                  </div>
+                  <pre class="right">▶</pre>
+                </header>
+                <div class="calendar-body">
+                  <div id="picker-day">
+                    <div class="week"></div>
+                    <div class="days"></div>
+                  </div>
+                  <div id="picker-time"></div>
+                </div>
+                <div class="calendar-selected">
+                  <p>Selected day: <span id="selected-day"></span></p>
+                  <p>Selected hour: <span id="selected-hour"></span></p>
+                </div>
+                <div id="btn-confirm" class="btn-retro">Book court</div>
               </div>
-              <div class="days"></div>
             </div>
-            <div id="picker-time"></div>
           </div>
         </div>
       </div>
