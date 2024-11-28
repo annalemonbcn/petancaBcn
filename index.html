@@ -25,6 +25,9 @@
       defer
     ></script>
     <script type="module" src="script.js" defer></script>
+    <script type="module" src="src/calendar/index.js" defer></script>
+    <script type="module" src="src/notyf/index.js" defer></script>
+
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css"
@@ -34,6 +37,7 @@
     <link rel="stylesheet" type="text/css" href="src/css/buttons.css" />
     <link rel="stylesheet" type="text/css" href="src/css/libraries.css" />
     <link rel="stylesheet" type="text/css" href="src/modal/index.css" />
+    <link rel="stylesheet" type="text/css" href="src/calendar/index.css" />
   </head>
   <body>
     <div id="loader" style="display: none">
@@ -55,7 +59,53 @@
           <div id="modal-header">
             <span id="ico-close">&times;</span>
           </div>
-          <div id="modal-body"></div>
+          <div id="modal-body">
+            <div class="booking" style="display: block">
+              <h2>Book court <span class="marker-name"></span></h2>
+              <div>
+                <p>You can make a reservation for this court.</p>
+                <p>Reservations last for one hour.</p>
+              </div>
+              <div id="calendar">
+                <p>Select a day and time:</p>
+                <div class="container">
+                  <header>
+                    <pre class="left">◀</pre>
+                    <div class="header-display">
+                      <p class="display">""</p>
+                    </div>
+                    <pre class="right">▶</pre>
+                  </header>
+                  <div class="calendar-body">
+                    <div id="picker-day">
+                      <div class="week"></div>
+                      <div class="days"></div>
+                    </div>
+                    <div id="picker-time"></div>
+                  </div>
+                  <div class="calendar-selected">
+                    <p>Selected day: <span id="selected-day"></span></p>
+                    <p>Selected hour: <span id="selected-hour"></span></p>
+                  </div>
+                </div>
+              </div>
+              <div id="modal-btn">
+                <div id="btn-confirm" class="btn-retro">Book court</div>
+              </div>
+            </div>
+            <div class="confirm" style="display: none">
+              <p>
+                Are you sure you want to book court
+                <span id="courtName"></span> for day
+                <span id="selectedDay"></span> at
+                <span id="selectedTime"></span> hours?
+              </p>
+              <div class="buttons inline-buttons">
+                <div class="btn-retro secondary" id="cancel">Cancel</div>
+                <div class="btn-retro" id="book">Book</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

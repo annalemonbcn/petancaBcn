@@ -3,6 +3,7 @@ import {
   getAllFavourites,
   removeFavourite,
 } from "../utils/localStorage.js";
+import { notyf } from "../notyf/index.js";
 
 const filterMarkersByDistrict = (district, markers) => {
   if (district === "All") return markers;
@@ -11,14 +12,6 @@ const filterMarkersByDistrict = (district, markers) => {
 
 const toggleFavourite = (fav) => {
   const favourites = getAllFavourites();
-
-  let notyf = new Notyf({
-    duration: 3000,
-    position: {
-      x: "right",
-      y: "top",
-    },
-  });
 
   // if already in favs --> delete from localStorage
   if (favourites.find((marker) => marker.id === fav.id)) {

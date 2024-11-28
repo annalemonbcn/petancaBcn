@@ -1,0 +1,119 @@
+/* TODO: implement root colors to main css */
+:root {
+  --white: #fff;
+  --black: #3f3f3f;
+  --accent: #808080;
+  --accent-2: #c8c8c8;
+  --background: #d2d2d2;
+}
+
+#calendar .disabled {
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+#calendar .current-date {
+  background-color: var(--accent-2);
+  color: var(--black);
+}
+
+#calendar .selected-date,
+#calendar .selected-hour {
+  background: var(--accent);
+  color: var(--white);
+}
+
+#calendar {
+  margin-top: 12px;
+  text-align: center;
+}
+
+#calendar > p {
+  text-align: left;
+}
+
+#calendar .container {
+  display: inline-block;
+  color: var(--black);
+  background-color: var(--background);
+  border-radius: 8px;
+  padding: 0 3px 3px;
+  margin-top: 8px;
+}
+
+#calendar header {
+  width: auto;
+  padding: 4px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px 8px 0 0;
+  color: var(--black);
+  font-size: 1.2rem;
+}
+#calendar pre {
+  flex: 1;
+  cursor: pointer;
+}
+#calendar pre.left {
+  text-align: right;
+}
+#calendar .header-display {
+  text-align: center;
+  flex: auto;
+}
+
+#calendar .calendar-body {
+  display: flex;
+  gap: 12px;
+  padding-bottom: 8px;
+  border-radius: 8px;
+  background-color: var(--white);
+}
+
+#calendar #picker-day {
+  padding-top: 8px;
+  padding-left: 16px;
+}
+
+#calendar .week div {
+  opacity: 0.5;
+}
+
+#calendar .days div:hover,
+#calendar #picker-time div:hover {
+  background: var(--accent-2);
+  color: var(--accent);
+  cursor: pointer;
+}
+
+#calendar .days,
+#calendar .week {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  justify-content: space-between;
+}
+#calendar .week div,
+#calendar .days div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 2rem;
+  width: 2rem;
+}
+
+#calendar #picker-time {
+  border-left: 1px solid var(--accent-2);
+  padding: 8px 16px 0 4px;
+  max-height: 210px;
+  overflow-y: scroll;
+}
+
+#picker-time div {
+  padding: 2px 8px;
+}
+
+.calendar-selected {
+  margin: 8px;
+  text-align: left;
+}

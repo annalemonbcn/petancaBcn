@@ -12,10 +12,8 @@
 }
 
 .modal-content {
-  display: flex;
-  flex-direction: column;
-  width: 80%;
-  margin: 15% auto;
+  width: 60%;
+  margin: 8% auto auto;
   border-radius: 8px;
   background-color: #fefefe;
   color: black;
@@ -34,9 +32,17 @@
   padding: 16px;
 }
 
+#modal-btn {
+  margin-top: 20px;
+}
+
 #ico-close:hover,
 #ico-close:focus {
   color: #aaa;
   text-decoration: none;
   cursor: pointer;
+}
+
+.modal .buttons {
+  margin-top: 16px;
 }

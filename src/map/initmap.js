@@ -6,6 +6,7 @@ import {
   updateMarker,
 } from "./utils.js";
 import { closeModal, openModal } from "../modal/index.js";
+import { toggleView } from "../modal/utils.js";
 
 let map;
 let markersInMap = [];
@@ -71,7 +72,7 @@ const updateMap = (filteredMarkers, originalMarkers, selectorValue) => {
       `<p id="address-body">${markerAddress}</p>` +
       "</div>" +
       '<div id="street-view-container" style="width: 100%; height: 150px;"></div>' +
-      `<div id="infoWindow-button"><div id="btn-openModal" class="btn-retro">Book track</div></div>` +
+      `<div class="inline-buttons" id="infoWindow-button"><div id="btn-openModal" class="btn-retro">Book court</div></div>` +
       `<div id="infoWindow-link"><a href="https://www.google.com/maps/dir/?api=1&destination=${markerAddress}" target="_blank">Take me there</a></div>`;
 
     const bookingModal = document.getElementById("modal-booking");
@@ -114,6 +115,13 @@ const updateMap = (filteredMarkers, originalMarkers, selectorValue) => {
       // Close modal
       icoClose.onclick = () => {
         closeModal(bookingModal);
+      };
+
+      // Close modal if cancel button is pressed
+      const cancelButton = document.querySelector(".modal .btn-retro#cancel");
+      cancelButton.onclick = () => {
+        closeModal(bookingModal);
+        toggleView();
       };
 
       // Close the modal if click anywhere outside of the modal

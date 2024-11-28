@@ -16,7 +16,7 @@ const headerItems = [
   {
     id: "header-bookings",
     content: "bookings",
-    linkTo: "/bookings.html",
+    linkTo: "src/pages/bookings.html",
   },
 ];
 
