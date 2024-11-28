@@ -49,3 +49,7 @@ header #header-favs {
 #districtSelector-title {
   padding: 16px;
 }
+
+.modal #btn-confirm {
+  margin: auto;
+}

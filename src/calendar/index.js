@@ -8,6 +8,10 @@ import {
 const previous = document.querySelector(".left");
 const next = document.querySelector(".right");
 const days = document.querySelector(".days");
+const timePicker = document.getElementById("picker-time");
+
+const selectedDayEl = document.getElementById("selected-day");
+const selectedHourEl = document.getElementById("selected-hour");
 
 let currentlySelectedDay = null;
 let currentlySelectedHour = null;
@@ -15,15 +19,6 @@ let currentlySelectedHour = null;
 const dateToday = new Date();
 let year = dateToday.getFullYear();
 let month = dateToday.getMonth();
-
-// Create days of the week
-const daysNamed = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
-const weekEl = document.querySelector(".week");
-daysNamed.forEach((day) => {
-  const container = document.createElement("div");
-  container.innerHTML = day;
-  weekEl.appendChild(container);
-});
 
 const displayCalendar = () => {
   const displayElement = document.querySelector(".display");
@@ -43,21 +38,24 @@ const displayCalendar = () => {
 
   // Fill day numbers
   for (let i = 1; i <= numberOfDays; i++) {
-    const div = document.createElement("div");
+    const dayContainer = document.createElement("div");
     const date = new Date(year, month, i);
 
-    div.innerHTML += i;
-    div.dataset.date = date.toDateString();
+    dayContainer.innerHTML += i;
+    dayContainer.dataset.date = date.toDateString();
 
     if (checkToday(date)) {
-      div.classList.add("current-date");
-      currentlySelectedDay = div;
+      dayContainer.classList.add("current-date");
+      currentlySelectedDay = dayContainer;
       displaySelectedDay(currentlySelectedDay);
     }
 
-    if (isDisabledDate(date)) div.classList.add("disabled");
+    if (isDisabledDate(date)) dayContainer.classList.add("disabled");
 
-    days.appendChild(div);
+    // Add listener for each day
+    dayContainer.onclick = (e) => handleDayClick(e.target);
+
+    days.appendChild(dayContainer);
   }
 };
 
@@ -66,7 +64,6 @@ const displayHours = () => {
   const currentHour = dateToday.getHours();
 
   // Reset time picker section
-  const timePicker = document.getElementById("picker-time");
   timePicker.innerHTML = "";
 
   hours.forEach((hour) => {
@@ -82,15 +79,19 @@ const displayHours = () => {
       if (generatedHour <= currentHour) hourContainer.classList.add("disabled");
     }
 
+    // Add listener
+    hourContainer.onclick = (e) => handleHourClick(e.target);
+
     // Add hour-container to timePicker
     timePicker.appendChild(hourContainer);
   });
 };
 
-const displaySelectedDay = (selectedDay) => {
-  const selectedDayEl = document.getElementById("selected-day");
-  selectedDayEl.innerHTML = selectedDay.dataset.date;
-};
+const displaySelectedHour = (selectedHour) =>
+  (selectedHourEl.innerHTML = selectedHour.dataset.time);
+
+const displaySelectedDay = (selectedDay) =>
+  (selectedDayEl.innerHTML = selectedDay.dataset.date);
 
 const handleDayClick = (element) => {
   // Remove class from previous selected day
@@ -105,8 +106,10 @@ const handleDayClick = (element) => {
   // Display selected day on UI element
   displaySelectedDay(currentlySelectedDay);
 
-  // Re-render new hours
+  // Re-render new hours for each new day
   displayHours();
+  // Reset UI selected hour element
+  selectedHourEl.innerHTML = "";
 };
 
 const handleHourClick = (element) => {
@@ -117,43 +120,48 @@ const handleHourClick = (element) => {
 
   // Add clas to new selected hour
   element.classList.add("selected-hour");
+  // Save element to current  var
   currentlySelectedHour = element;
+  // Display selected hour on UI element
+  displaySelectedHour(currentlySelectedHour);
 };
 
-const displaySelected = () => {
-  const dayElements = document.querySelectorAll(".days div");
-  dayElements.forEach((day) => (day.onclick = (e) => handleDayClick(e.target)));
+const init = () => {
+  // Create days of the week
+  const daysNamed = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
+  const weekEl = document.querySelector(".week");
+  daysNamed.forEach((day) => {
+    const container = document.createElement("div");
+    container.innerHTML = day;
+    weekEl.appendChild(container);
+  });
 
-  const hourElements = document.querySelectorAll("#picker-time .hour");
-  hourElements.forEach(
-    (hour) => (hour.onclick = (e) => handleHourClick(e.target))
-  );
+  // Display calendar
+  displayCalendar();
+  // Display time picker
+  displayHours();
+
+  previous.addEventListener("click", () => {
+    days.innerHTML = "";
+    if (month < 0) {
+      month = 11;
+      year = year - 1;
+    }
+    month = month - 1;
+    dateToday.setMonth(month);
+    displayCalendar();
+  });
+
+  next.addEventListener("click", () => {
+    days.innerHTML = "";
+    if (month > 11) {
+      month = 0;
+      year = year + 1;
+    }
+    month = month + 1;
+    dateToday.setMonth(month);
+    displayCalendar();
+  });
 };
 
-displayCalendar();
-displayHours();
-displaySelected();
-
-previous.addEventListener("click", () => {
-  days.innerHTML = "";
-  if (month < 0) {
-    month = 11;
-    year = year - 1;
-  }
-  month = month - 1;
-  dateToday.setMonth(month);
-  displayCalendar();
-  displaySelected();
-});
-
-next.addEventListener("click", () => {
-  days.innerHTML = "";
-  if (month > 11) {
-    month = 0;
-    year = year + 1;
-  }
-  month = month + 1;
-  dateToday.setMonth(month);
-  displayCalendar();
-  displaySelected();
-});
+init();

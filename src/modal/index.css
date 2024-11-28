@@ -32,6 +32,10 @@
   padding: 16px;
 }
 
+#modal-btn {
+  margin-top: 20px;
+}
+
 #ico-close:hover,
 #ico-close:focus {
   color: #aaa;
