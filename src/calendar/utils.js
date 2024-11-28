@@ -1,4 +1,5 @@
-const MAX_HOUR = 23;
+const MIN_HOUR = 8;
+const MAX_HOUR = 20;
 
 const getMmonthAndYearFromDate = (date) =>
   date.toLocaleString("en-US", {
@@ -18,7 +19,7 @@ const checkToday = (date) => {
 const generateHours = () => {
   const hours = [];
 
-  for (let i = 0; i <= MAX_HOUR; i++) {
+  for (let i = MIN_HOUR; i <= MAX_HOUR; i++) {
     const paddedHour = String(i).padStart(2, "0");
     hours.push(`${paddedHour}:00`);
   }
