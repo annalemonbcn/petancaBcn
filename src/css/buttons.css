@@ -11,6 +11,10 @@
     inset 4px 0px 1px 1px lightgray;
 }
 
+.btn-retro.secondary {
+  background-color: #e5e5e5;
+}
+
 .btn-retro:hover {
   cursor: pointer;
   background-color: #da499d;
@@ -42,4 +46,15 @@
   width: 100%;
   height: 113%;
   z-index: -1;
+}
+
+.inline-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+
+.inline-buttons > .btn-retro {
+  flex: 1;
 }

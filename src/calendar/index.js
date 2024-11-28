@@ -4,6 +4,8 @@ import {
   getMmonthAndYearFromDate,
   isDisabledDate,
 } from "./utils.js";
+import { notyf } from "../notyf/index.js";
+import { toggleView } from "../modal/utils.js";
 
 const previous = document.querySelector(".left");
 const next = document.querySelector(".right");
@@ -13,8 +15,10 @@ const timePicker = document.getElementById("picker-time");
 const selectedDayEl = document.getElementById("selected-day");
 const selectedHourEl = document.getElementById("selected-hour");
 
-let currentlySelectedDay = null;
-let currentlySelectedHour = null;
+const btnConfirm = document.getElementById("btn-confirm");
+
+export let currentlySelectedDay = null;
+export let currentlySelectedHour = null;
 
 const dateToday = new Date();
 let year = dateToday.getFullYear();
@@ -141,7 +145,7 @@ const init = () => {
   // Display time picker
   displayHours();
 
-  previous.addEventListener("click", () => {
+  previous.onclick = () => {
     days.innerHTML = "";
     if (month < 0) {
       month = 11;
@@ -150,9 +154,9 @@ const init = () => {
     month = month - 1;
     dateToday.setMonth(month);
     displayCalendar();
-  });
+  };
 
-  next.addEventListener("click", () => {
+  next.onclick = () => {
     days.innerHTML = "";
     if (month > 11) {
       month = 0;
@@ -161,7 +165,42 @@ const init = () => {
     month = month + 1;
     dateToday.setMonth(month);
     displayCalendar();
-  });
+  };
 };
 
 init();
+
+btnConfirm.onclick = () => {
+  if (!currentlySelectedHour) {
+    notyf.error("You must select a time");
+    return;
+  }
+
+  // Switch view in modal-body
+  toggleView();
+
+  // Fill view info
+  const courtNameEl = document.querySelector("#modal-body .confirm #courtName");
+  courtNameEl.innerHTML = "???";
+
+  const confirmSelectedDayEl = document.querySelector(
+    "#modal-body .confirm #selectedDay"
+  );
+  confirmSelectedDayEl.innerHTML = currentlySelectedDay.dataset.date;
+
+  const confirmSelectedTime = document.querySelector(
+    "#modal-body .confirm #selectedTime"
+  );
+  confirmSelectedTime.innerHTML = currentlySelectedHour.dataset.time;
+};
+
+const bookButton = document.querySelector(".modal .btn-retro#book");
+bookButton.onclick = () => {
+  const confirmation = notyf.success(
+    "Booking registered! Click here to see all your bookings."
+  );
+  confirmation.on(
+    "click",
+    ({ target, event }) => (window.location.href = "src/pages/bookings.html")
+  );
+};

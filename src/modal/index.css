@@ -13,7 +13,7 @@
 
 .modal-content {
   width: 60%;
-  margin: 15% auto;
+  margin: 8% auto auto;
   border-radius: 8px;
   background-color: #fefefe;
   color: black;
@@ -41,4 +41,8 @@
   color: #aaa;
   text-decoration: none;
   cursor: pointer;
+}
+
+.modal .buttons {
+  margin-top: 16px;
 }
