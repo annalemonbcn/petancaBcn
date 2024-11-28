@@ -16,6 +16,15 @@ const dateToday = new Date();
 let year = dateToday.getFullYear();
 let month = dateToday.getMonth();
 
+// Create days of the week
+const daysNamed = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
+const weekEl = document.querySelector(".week");
+daysNamed.forEach((day) => {
+  const container = document.createElement("div");
+  container.innerHTML = day;
+  weekEl.appendChild(container);
+});
+
 const displayCalendar = () => {
   const displayElement = document.querySelector(".display");
   displayElement.innerHTML = `${getMmonthAndYearFromDate(dateToday)}`;
@@ -43,6 +52,7 @@ const displayCalendar = () => {
     if (checkToday(date)) {
       div.classList.add("current-date");
       currentlySelectedDay = div;
+      displaySelectedDay(currentlySelectedDay);
     }
 
     if (isDisabledDate(date)) div.classList.add("disabled");
@@ -55,28 +65,31 @@ const displayHours = () => {
   const hours = generateHours();
   const currentHour = dateToday.getHours();
 
+  // Reset time picker section
   const timePicker = document.getElementById("picker-time");
   timePicker.innerHTML = "";
 
   hours.forEach((hour) => {
+    // Create an hour-container and add date-time attr
     const hourContainer = document.createElement("div");
     hourContainer.innerHTML = hour;
     hourContainer.classList.add("hour");
     hourContainer.dataset.time = hour;
 
-    if (currentlySelectedDay) {
-      const selectedDay = new Date(currentlySelectedDay.dataset.date);
-      const isToday = checkToday(selectedDay);
-
-      if (isToday) {
-        const generatedHour = hour.split(":").at(0);
-        if (generatedHour <= currentHour)
-          hourContainer.classList.add("disabled");
-      }
+    // If selected day is today: disable past hours
+    if (checkToday(new Date(currentlySelectedDay.dataset.date))) {
+      const generatedHour = hour.split(":").at(0);
+      if (generatedHour <= currentHour) hourContainer.classList.add("disabled");
     }
 
+    // Add hour-container to timePicker
     timePicker.appendChild(hourContainer);
   });
+};
+
+const displaySelectedDay = (selectedDay) => {
+  const selectedDayEl = document.getElementById("selected-day");
+  selectedDayEl.innerHTML = selectedDay.dataset.date;
 };
 
 const handleDayClick = (element) => {
@@ -87,7 +100,12 @@ const handleDayClick = (element) => {
 
   // Add class to new selected day
   element.classList.add("selected-date");
+  // Save element to currentlySelectedDay var
   currentlySelectedDay = element;
+  // Display selected day on UI element
+  displaySelectedDay(currentlySelectedDay);
+
+  // Re-render new hours
   displayHours();
 };
 
