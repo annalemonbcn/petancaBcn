@@ -22,7 +22,7 @@ const headerItems = [
 
 const createHeader = () => {
   const header = document.querySelector("header");
-  headerItems.map((item) => {
+  headerItems.forEach((item) => {
     // Create container
     const itemContainer = document.createElement("div");
     itemContainer.id = item.id;

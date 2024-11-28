@@ -6,6 +6,7 @@ import {
 } from "./utils.js";
 import { notyf } from "../notyf/index.js";
 import { toggleView } from "../modal/utils.js";
+import { closeModal } from "../modal/index.js";
 
 const previous = document.querySelector(".left");
 const next = document.querySelector(".right");
@@ -23,6 +24,10 @@ export let currentlySelectedHour = null;
 const dateToday = new Date();
 let year = dateToday.getFullYear();
 let month = dateToday.getMonth();
+
+const bookingModal = document.getElementById("modal-booking");
+const markerNameEl = document.querySelector(".modal .marker-name");
+const modalBody = document.querySelector(".modal #modal-body");
 
 const displayCalendar = () => {
   const displayElement = document.querySelector(".display");
@@ -181,7 +186,7 @@ btnConfirm.onclick = () => {
 
   // Fill view info
   const courtNameEl = document.querySelector("#modal-body .confirm #courtName");
-  courtNameEl.innerHTML = "???";
+  courtNameEl.innerHTML = markerNameEl.innerHTML;
 
   const confirmSelectedDayEl = document.querySelector(
     "#modal-body .confirm #selectedDay"
@@ -196,11 +201,27 @@ btnConfirm.onclick = () => {
 
 const bookButton = document.querySelector(".modal .btn-retro#book");
 bookButton.onclick = () => {
-  const confirmation = notyf.success(
-    "Booking registered! Click here to see all your bookings."
-  );
-  confirmation.on(
-    "click",
-    ({ target, event }) => (window.location.href = "src/pages/bookings.html")
-  );
+  const bookingData = {
+    court: markerNameEl.innerHTML,
+    day: currentlySelectedDay.dataset.date,
+    hour: currentlySelectedHour.dataset.time,
+  };
+  try {
+    // Save item in localStorage
+    localStorage.setItem(
+      `booking_${modalBody.dataset.modalId}`,
+      JSON.stringify(bookingData)
+    );
+    const confirmation = notyf.success(
+      "Booking registered! Click here to see all your bookings."
+    );
+    confirmation.on(
+      "click",
+      ({ target, event }) => (window.location.href = "src/pages/bookings.html")
+    );
+    closeModal(bookingModal);
+  } catch (error) {
+    notyf.error("Couldn't register your booking. Please try again");
+    console.error("Error registering a booking", error);
+  }
 };
