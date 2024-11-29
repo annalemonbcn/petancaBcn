@@ -8,8 +8,6 @@ const openModal = (bookingModal, marker) => {
   modalBody.dataset.modalId = marker.id;
 };
 
-const closeModal = (bookingModal) => {
-  bookingModal.style.display = "none";
-};
+const closeModal = (bookingModal) => (bookingModal.style.display = "none");
 
 export { openModal, closeModal };
