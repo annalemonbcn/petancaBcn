@@ -12,4 +12,11 @@ const toggleView = () => {
   bookingConfirm.style.display = "block";
 };
 
-export { toggleView };
+const resetBookingView = () => {
+  if ((bookingConfirm.style.display === "none")) return;
+
+  bookingConfirm.style.display = "none";
+  bookingView.style.display = "block";
+};
+
+export { toggleView, resetBookingView };

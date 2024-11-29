@@ -5,7 +5,7 @@ import {
   isDisabledDate,
 } from "./utils.js";
 import { notyf } from "../notyf/index.js";
-import { toggleView } from "../modal/utils.js";
+import { resetBookingView, toggleView } from "../modal/utils.js";
 import { closeModal } from "../modal/index.js";
 import { BOOKINGS_KEY_PREFIX } from "../utils/localStorage.js";
 
@@ -81,6 +81,9 @@ const displayHours = () => {
   const hours = generateHours();
   const currentHour = dateToday.getHours();
 
+  // Reset time picker section
+  timePicker.innerHTML = "";
+
   hours.forEach((hour) => {
     // Create an hour-container and add date-time attr
     const hourContainer = document.createElement("div");
@@ -145,8 +148,9 @@ const handleHourClick = (element) => {
 };
 
 export const init = () => {
-  // Reset all
   const weekEl = document.querySelector(".week");
+  resetBookingView();
+  // Reset all
   weekEl.innerHTML = "";
   days.innerHTML = "";
   timePicker.innerHTML = "";
@@ -239,7 +243,6 @@ bookButton.onclick = () => {
     );
     closeModal(bookingModal);
     resetData();
-    toggleView();
   } catch (error) {
     notyf.error("Couldn't register your booking. Please try again");
     console.error("Error registering a booking", error);
