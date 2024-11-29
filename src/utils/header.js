@@ -1,5 +1,10 @@
 const headerItems = [
   {
+    id: "header-h1",
+    content: "<h1>PetancaBCN</h1>",
+    linkTo: "/",
+  },
+  {
     id: "header-favs",
     content: `
       <img src="/src/svg/glasses-white.svg" width="30" />
@@ -7,14 +12,9 @@ const headerItems = [
     `,
   },
   {
-    id: "header-h1",
-    content: "<h1>PetancaBCN</h1>",
-    linkTo: "/",
-  },
-  {
     id: "header-bookings",
     content: "bookings",
-    linkTo: "/src/pages/bookings.html",
+    linkTo: "/src/pages/bookings/bookings.html",
   },
 ];
 

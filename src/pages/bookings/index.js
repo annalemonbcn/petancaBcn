@@ -1,11 +1,11 @@
-import { createHeader } from "../utils/header.js";
+import { createHeader } from "../../utils/header.js";
 import {
   getAllBookings,
   removeAllBookings,
   removeBooking,
-} from "../utils/localStorage.js";
+} from "../../utils/localStorage.js";
 import { renderBooking } from "./utils.js";
-import { notyf } from "../notyf/index.js";
+import { notyf } from "../../notyf/index.js";
 
 const bookingsListEl = document.getElementById("bookings-list");
 

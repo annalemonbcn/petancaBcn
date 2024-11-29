@@ -1,11 +1,11 @@
 import {
   checkToday,
   generateHours,
-  getMmonthAndYearFromDate,
+  getMonthAndYearFromDate,
   isDisabledDate,
 } from "./utils.js";
 import { notyf } from "../notyf/index.js";
-import { toggleView } from "../modal/utils.js";
+import { resetBookingView, toggleView } from "../modal/utils.js";
 import { closeModal } from "../modal/index.js";
 import { BOOKINGS_KEY_PREFIX } from "../utils/localStorage.js";
 
@@ -19,8 +19,8 @@ const selectedHourEl = document.getElementById("selected-hour");
 
 const btnConfirm = document.getElementById("btn-confirm");
 
-export let currentlySelectedDay = null;
-export let currentlySelectedHour = null;
+let currentlySelectedDay = null;
+let currentlySelectedHour = null;
 
 const dateToday = new Date();
 let year = dateToday.getFullYear();
@@ -30,9 +30,16 @@ const bookingModal = document.getElementById("modal-booking");
 const markerNameEl = document.querySelector(".modal .marker-name");
 const modalBody = document.querySelector(".modal #modal-body");
 
+export const resetData = () => {
+  selectedDayEl.innerHTML = "";
+  selectedHourEl.innerHTML = "";
+  currentlySelectedDay = null;
+  currentlySelectedHour = null;
+};
+
 const displayCalendar = () => {
   const displayElement = document.querySelector(".display");
-  displayElement.innerHTML = `${getMmonthAndYearFromDate(dateToday)}`;
+  displayElement.innerHTML = `${getMonthAndYearFromDate(dateToday)}`;
 
   const firstDay = new Date(year, month, 1);
   const firstDayIndex = firstDay.getDay() - 1;
@@ -52,6 +59,7 @@ const displayCalendar = () => {
     const date = new Date(year, month, i);
 
     dayContainer.innerHTML += i;
+    dayContainer.className = "day";
     dayContainer.dataset.date = date.toDateString();
 
     if (checkToday(date)) {
@@ -84,7 +92,10 @@ const displayHours = () => {
     hourContainer.dataset.time = hour;
 
     // If selected day is today: disable past hours
-    if (checkToday(new Date(currentlySelectedDay.dataset.date))) {
+    if (
+      currentlySelectedDay &&
+      checkToday(new Date(currentlySelectedDay.dataset.date))
+    ) {
       const generatedHour = hour.split(":").at(0);
       if (generatedHour <= currentHour) hourContainer.classList.add("disabled");
     }
@@ -136,10 +147,18 @@ const handleHourClick = (element) => {
   displaySelectedHour(currentlySelectedHour);
 };
 
-const init = () => {
+export const init = () => {
+  const weekEl = document.querySelector(".week");
+  resetBookingView();
+  // Reset all
+  weekEl.innerHTML = "";
+  days.innerHTML = "";
+  timePicker.innerHTML = "";
+  selectedDayEl.innerHTML = "";
+  selectedHourEl.innerHTML = "";
+
   // Create days of the week
   const daysNamed = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
-  const weekEl = document.querySelector(".week");
   daysNamed.forEach((day) => {
     const container = document.createElement("div");
     container.innerHTML = day;
@@ -187,6 +206,7 @@ btnConfirm.onclick = () => {
 
   // Fill view info
   const courtNameEl = document.querySelector("#modal-body .confirm #courtName");
+  console.log("courtNameEl", courtNameEl);
   courtNameEl.innerHTML = markerNameEl.innerHTML;
 
   const confirmSelectedDayEl = document.querySelector(
@@ -219,10 +239,11 @@ bookButton.onclick = () => {
     );
     confirmation.on(
       "click",
-      ({ target, event }) => (window.location.href = "src/pages/bookings.html")
+      ({ target, event }) =>
+        (window.location.href = "src/pages/bookings/bookings.html")
     );
     closeModal(bookingModal);
-    toggleView();
+    resetData();
   } catch (error) {
     notyf.error("Couldn't register your booking. Please try again");
     console.error("Error registering a booking", error);

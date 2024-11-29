@@ -12,11 +12,17 @@
 }
 
 .modal-content {
-  width: 60%;
-  margin: 8% auto auto;
+  width: 90%;
+  margin: 30% auto auto;
   border-radius: 8px;
   background-color: #fefefe;
   color: black;
+}
+@media screen and (width >= 992px) {
+  .modal-content {
+    width: 60%;
+    margin: 8% auto auto;
+  }
 }
 
 #modal-header {

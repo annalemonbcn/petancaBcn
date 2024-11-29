@@ -2,8 +2,14 @@ header {
   width: 100%;
   padding: 32px 32px 0;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+}
+@media screen and (width >= 768px) {
+  header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
 }
 
 header > div {
@@ -13,13 +19,28 @@ header > div {
 #header-h1 {
   text-align: center;
 }
+@media screen and (width >= 768px) {
+  header #header-h1 {
+    order: 2;
+  }
+}
 
 header #header-favs {
   display: flex;
-  gap: 8px;
+  gap: 4px;
   text-decoration: underline;
-  cursor: pointer;
-  /* align-items: center; */
+}
+@media screen and (width >= 768px) {
+  header #header-favs {
+    order: 1;
+  }
+}
+
+@media screen and (width >= 768px) {
+  header #header-bookings {
+    text-align: right;
+    order: 3;
+  }
 }
 
 #noBookings {
@@ -30,10 +51,6 @@ header #header-favs {
   display: flex;
   flex-direction: column;
   gap: 12px;
-}
-
-#header-bookings {
-  text-align: right;
 }
 
 #app-content {
