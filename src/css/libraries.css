@@ -6,8 +6,13 @@
 
 /* MAP */
 #map {
-  height: 60vh;
+  height: 50vh;
   width: 100%;
+}
+@media screen and (width >= 758px) {
+  #map {
+    height: 60vh;
+  }
 }
 
 .gm-style {
