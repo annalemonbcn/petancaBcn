@@ -14,9 +14,8 @@ const getAllFavourites = () => {
   return favourites;
 };
 
-const removeFavourite = (favId) => {
+const removeFavourite = (favId) =>
   localStorage.removeItem(`${FAVORITES_KEY_PREFIX}${favId}`);
-};
 
 const getAllBookings = () => {
   const bookings = [];
@@ -31,8 +30,18 @@ const getAllBookings = () => {
   return bookings;
 };
 
-const removeBooking = (bookingId) => {
+const removeBooking = (bookingId) =>
   localStorage.removeItem(`${BOOKINGS_KEY_PREFIX}${bookingId}`);
+
+const removeAllBookings = (bookings) => {
+  console.log("bookings", bookings);
+  bookings.forEach((booking) => removeBooking(booking.id));
 };
 
-export { getAllFavourites, removeFavourite, getAllBookings, removeBooking };
+export {
+  getAllFavourites,
+  removeFavourite,
+  getAllBookings,
+  removeBooking,
+  removeAllBookings,
+};

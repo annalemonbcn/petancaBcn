@@ -1,5 +1,9 @@
 import { createHeader } from "../utils/header.js";
-import { getAllBookings, removeBooking } from "../utils/localStorage.js";
+import {
+  getAllBookings,
+  removeAllBookings,
+  removeBooking,
+} from "../utils/localStorage.js";
 import { renderBooking } from "./utils.js";
 import { notyf } from "../notyf/index.js";
 
@@ -20,7 +24,7 @@ createHeader();
 document.getElementById("app-content").classList.add("show");
 
 const renderBookings = () => {
-  const bookings = getAllBookings();
+  const allBookings = getAllBookings();
 
   // Hide html
   const noBookingsEl = document.getElementById("noBookings");
@@ -28,12 +32,13 @@ const renderBookings = () => {
   const bookingsEl = document.getElementById("bookings");
   bookingsEl.style.display = "none";
 
-  if (!bookings.length) {
+  if (!allBookings.length) {
     noBookingsEl.style.display = "block";
     return;
   }
+
   bookingsEl.style.display = "flex";
-  const bookingHtml = bookings.map(renderBooking).join("");
+  const bookingHtml = allBookings.map(renderBooking).join("");
   bookingsListEl.innerHTML = bookingHtml;
   addCrossElementsListeners();
 };
@@ -43,14 +48,49 @@ const addCrossElementsListeners = () => {
   crossElements.forEach((crossEl) => {
     crossEl.onclick = (e) => {
       const booking = e.target.closest(".booking");
-      openModal(booking);
+      openDeleteModal(booking);
     };
   });
 };
 
 renderBookings();
 
-const openModal = (booking) => {
+const deleteAll = document.getElementById("deleteAll");
+const deleteAllModal = document.querySelector(".modal#modal-deleteAll");
+deleteAll.onclick = () => {
+  // show modal
+  openDeleteAllModal();
+
+  // If click on delete button
+  document.querySelector(".modal#modal-deleteAll #deleteAllBtn").onclick =
+    () => {
+      try {
+        removeAllBookings(getAllBookings());
+        notyf.success("All bookings successfully deleted");
+        closeDeleteAllModal();
+        renderBookings();
+      } catch (error) {
+        notyf.error("Error deleting all bookings");
+        console.error("Error deleting all bookings", error);
+      }
+    };
+};
+
+/** DELETE ALL MODAL */
+const openDeleteAllModal = () => (deleteAllModal.style.display = "block");
+
+const closeDeleteAllModal = () => (deleteAllModal.style.display = "none");
+
+// Listener to icoClose
+document.querySelector(".modal#modal-deleteAll #ico-close").onclick = () =>
+  closeDeleteAllModal();
+
+// Listener to cancel button
+document.querySelector(".modal#modal-deleteAll #cancelBtn").onclick = () =>
+  closeDeleteAllModal();
+
+/** DELETE SINGLE MODAL */
+const openDeleteModal = (booking) => {
   deleteModal.style.display = "block";
 
   const bookingName = booking.children[0].children[1].innerHTML;
@@ -69,7 +109,7 @@ const openModal = (booking) => {
     try {
       removeBooking(bookingId);
       notyf.success("Booking successfully deleted");
-      closeModal();
+      closeDeleteModal();
       renderBookings();
     } catch (error) {
       notyf.error("Error deleting your booking");
@@ -78,17 +118,20 @@ const openModal = (booking) => {
   };
 };
 
-const closeModal = () => (deleteModal.style.display = "none");
+const closeDeleteModal = () => (deleteModal.style.display = "none");
 
 // Listener to icoClose
-icoClose.onclick = () => closeModal();
+icoClose.onclick = () => closeDeleteModal();
 
 // Listener to cancel button
-cancelButton.onclick = () => closeModal();
+cancelButton.onclick = () => closeDeleteModal();
 
-// Listener to window to close the modal if click anywhere outside of the modal
+// Listener to window to close modals if click anywhere outside of the modal
 window.onclick = (event) => {
   if (event.target == deleteModal) {
-    closeModal();
+    closeDeleteModal();
+  }
+  if (event.target == deleteAllModal) {
+    closeDeleteAllModal();
   }
 };
