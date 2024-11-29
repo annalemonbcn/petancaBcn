@@ -1,7 +1,7 @@
 const MIN_HOUR = 8;
 const MAX_HOUR = 20;
 
-const getMmonthAndYearFromDate = (date) =>
+const getMonthAndYearFromDate = (date) =>
   date.toLocaleString("en-US", {
     month: "long",
     year: "numeric",
@@ -32,4 +32,4 @@ const isDisabledDate = (date) => {
   return date < yesterday;
 };
 
-export { getMmonthAndYearFromDate, checkToday, generateHours, isDisabledDate };
+export { getMonthAndYearFromDate, checkToday, generateHours, isDisabledDate };

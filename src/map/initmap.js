@@ -4,7 +4,6 @@ import {
   updateMarker,
 } from "./utils.js";
 import { closeModal, openModal } from "../modal/index.js";
-import { toggleView } from "../modal/utils.js";
 
 let map;
 let markersInMap = [];
@@ -115,14 +114,12 @@ const updateMap = (filteredMarkers, originalMarkers, selectorValue) => {
       const cancelButton = document.querySelector(".modal .btn-retro#cancel");
       cancelButton.onclick = () => {
         closeModal(bookingModal);
-        toggleView();
       };
 
       // Close the modal if click anywhere outside of the modal
       window.onclick = (event) => {
         if (event.target == bookingModal) {
           closeModal(bookingModal);
-          toggleView();
         }
       };
 
@@ -141,6 +138,10 @@ function initMap(filteredMarkers, originalMarkers, selectorValue) {
       lat: filteredMarkers.at(0).coordinates.lat,
       lng: filteredMarkers.at(0).coordinates.long,
     },
+    zoomControl: false,
+    scaleControl: false,
+    streetViewControl: false,
+    fullscreenControl: false,
     mapTypeControl: false,
   });
 

@@ -21,6 +21,8 @@ header #header-bookings {
 }
 
 .booking {
+  max-width: 350px;
+
   border-radius: 6px;
   border: 1px solid #27272a;
   padding: 8px 20px 8px 12px;
@@ -28,6 +30,11 @@ header #header-bookings {
   display: flex;
   justify-content: space-between;
   gap: 24px;
+}
+@media screen and (width >= 768px) {
+  .booking {
+    max-width: 385px;
+  }
 }
 
 .booking .title {
