@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PetancaBCN - Bookings</title>
+
+    <link rel="icon" type="image/png" href="/src/media/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Honk&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=VT323&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"
+      defer
+    ></script>
+    <script type="module" src="index.js" defer></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css"
+    />
+    <link rel="stylesheet" type="text/css" href="/src/css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="stylesheet" type="text/css" href="/src/pages/bookings/style.css" />
+    <link rel="stylesheet" type="text/css" href="/src/css/buttons.css" />
+    <link rel="stylesheet" type="text/css" href="/src/css/libraries.css" />
+    <link rel="stylesheet" type="text/css" href="/src/modal/index.css" />
+    <link rel="stylesheet" type="text/css" href="/src/calendar/index.css" />
+  </head>
+  <body>
+    <div id="app-content">
+      <header></header>
+      <div class="section" id="section-bookingsList">
+        <h2>Bookings list</h2>
+        <div id="noBookings" style="display: none">
+          <h3>No bookings yet!</h3>
+        </div>
+        <div id="bookings" style="display: none">
+          <p id="deleteAll">Delete all</p>
+          <div id="bookings-list"></div>
+        </div>
+      </div>
+
+      <div id="modal-delete" class="modal">
+        <div class="modal-content">
+          <div id="modal-header">
+            <span id="ico-close">&times;</span>
+          </div>
+          <div id="modal-body">
+            <p>You are about to delete the following booking:</p>
+            <p>Court: <span id="details-courtName"></span></p>
+            <p><span id="details-day"></span></p>
+            <p><span id="details-hour"></span>h</p>
+            <div class="buttons inline-buttons">
+              <div class="btn-retro secondary" id="cancel">Cancel</div>
+              <div class="btn-retro" id="delete">Delete</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="modal-deleteAll" class="modal">
+        <div class="modal-content">
+          <div id="modal-header">
+            <span id="ico-close">&times;</span>
+          </div>
+          <div id="modal-body">
+            <p>Are you sure you want to delete all your bookings?</p>
+            <div class="buttons inline-buttons">
+              <div class="btn-retro secondary" id="cancelBtn">Cancel</div>
+              <div class="btn-retro" id="deleteAllBtn">Delete all</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

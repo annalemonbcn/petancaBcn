@@ -1,0 +1,83 @@
+/* NOTYF */
+.notyf__toast--upper {
+  position: relative;
+  top: 20px;
+}
+
+/* MAP */
+#map {
+  height: 60vh;
+  width: 100%;
+}
+
+.gm-style {
+  font: inherit;
+  color: #000;
+}
+
+@media screen and (width < 768px) {
+  .gm-style-iw.gm-style-iw-c {
+    max-width: 350px !important;
+    max-height: 370px !important;
+  }
+  .gm-style-iw-d {
+    max-height: 370px !important;
+  }
+}
+
+#infoWindow {
+  min-width: 300px;
+  max-height: 370px;
+  padding-right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+#infoWindow-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding-right: 8px;
+}
+
+#infoWindow-header-title {
+  font-size: 1rem;
+}
+@media screen and (width >= 768px) {
+  #infoWindow-header-title {
+    font-size: 20px;
+    line-height: 22px;
+  }
+}
+
+#infoWindow-body-address {
+  font-size: 16px;
+}
+
+#infoWindow-link {
+  font-size: 14px;
+}
+
+.ico-heart {
+  cursor: pointer;
+  transition: transform 0.1s ease-in-out;
+}
+
+.ico-heart:hover {
+  transform: scale(1.2);
+}
+
+#infoWindow-body-address {
+  display: flex;
+  gap: 4px;
+}
+
+#address-title {
+  font-weight: 700;
+}
+
+#infoWindow-button {
+  padding-left: 10px;
+}

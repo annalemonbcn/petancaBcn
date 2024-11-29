@@ -3,8 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PetancaBCN</title>
+    <title>PetancaBCN - Home</title>
 
+    <link rel="icon" type="image/png" href="./src/media/favicon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -12,39 +13,99 @@
       rel="stylesheet"
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=VT323&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css" />
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBAIpnYbDik5oJO26IkzivjBLrd8v-iOPI"
+      defer
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"
+      defer
+    ></script>
+    <script type="module" src="script.js" defer></script>
+    <script type="module" src="src/calendar/index.js" defer></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css"
+    />
+    <link rel="stylesheet" type="text/css" href="src/css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" type="text/css" href="src/css/buttons.css" />
+    <link rel="stylesheet" type="text/css" href="src/css/libraries.css" />
+    <link rel="stylesheet" type="text/css" href="src/modal/index.css" />
+    <link rel="stylesheet" type="text/css" href="src/calendar/index.css" />
   </head>
   <body>
-    <header>
-      <h1>PetancaBCN</h1>
-      <p>
-        Esta web pretende mostrar un listado de equipamientos deportivos donde
-        practicar petanca en la ciudad de Barcelona, España.
-      </p>
-      <p>
-        La idea es hacer un fetch de datos desde la API del propio ayuntamiento
-        de Barcelona, que ofrece esta información.
-      </p>
-      <p>
-        La información se mostrará en forma de puntos en un mapa ubicando las
-        coordenadas o bien en formato de lista.
-      </p>
-      <p>
-        La web también va a incluir un input donde introducir la localización, y
-        si no es muy complicado, pedir permisos al usuario para ubicarle de
-        forma automática.
-      </p>
-      <p>Principalmente estará optimizada para mobile.</p>
-      <div>
-        <button>🗺️ Map</button>
-        <button>📋 List</button>
+    <div id="loader" style="display: none">
+      <img src="./src/media/loading.gif" alt="Loading..." />
+    </div>
+
+    <div id="app-content">
+      <header></header>
+      <div class="section" id="section-districtSelector">
+        <p id="districtSelector-title">
+          Select a district to filter the results on the map:
+        </p>
+        <select name="districts" id="districtsSelector"></select>
       </div>
-    </header>
-    <div id="map"></div>
-    <script src="script.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBAIpnYbDik5oJO26IkzivjBLrd8v-iOPI&callback=initMap"></script>
+      <div class="section" id="map"></div>
+
+      <div id="modal-booking" class="modal">
+        <div class="modal-content">
+          <div id="modal-header">
+            <span id="ico-close">&times;</span>
+          </div>
+          <div id="modal-body">
+            <div class="booking" style="display: block">
+              <h2>Book court <span class="marker-name"></span></h2>
+              <div>
+                <p>You can make a reservation for this court.</p>
+                <p>Reservations last for one hour.</p>
+              </div>
+              <div id="calendar">
+                <p>Select a day and time:</p>
+                <div class="container">
+                  <header>
+                    <pre class="left">◀</pre>
+                    <div class="header-display">
+                      <p class="display">""</p>
+                    </div>
+                    <pre class="right">▶</pre>
+                  </header>
+                  <div class="calendar-body">
+                    <div id="picker-day">
+                      <div class="week"></div>
+                      <div class="days"></div>
+                    </div>
+                    <div id="picker-time"></div>
+                  </div>
+                  <div class="calendar-selected">
+                    <p>Selected day: <span id="selected-day"></span></p>
+                    <p>Selected hour: <span id="selected-hour"></span></p>
+                  </div>
+                </div>
+              </div>
+              <div id="modal-btn">
+                <div id="btn-confirm" class="btn-retro">Book court</div>
+              </div>
+            </div>
+            <div class="confirm" style="display: none">
+              <p>
+                Are you sure you want to book "<span id="courtName"></span>" for
+                the <span id="selectedDay"></span> at
+                <span id="selectedTime"></span> hours?
+              </p>
+              <div class="buttons inline-buttons">
+                <div class="btn-retro secondary" id="cancel">Cancel</div>
+                <div class="btn-retro" id="book">Book</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

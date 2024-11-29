@@ -1,43 +1,82 @@
-html {
-  box-sizing: border-box;
+header {
+  width: 100%;
+  padding: 32px 32px 0;
+  display: flex;
+  flex-direction: column;
+}
+@media screen and (width >= 768px) {
+  header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: inherit;
+header > div {
+  flex: 1;
 }
 
-body {
-  font-family: "Roboto", sans-serif;
+#header-h1 {
+  text-align: center;
+}
+@media screen and (width >= 768px) {
+  header #header-h1 {
+    order: 2;
+  }
+}
+
+header #header-favs {
+  display: flex;
+  gap: 4px;
+  text-decoration: underline;
+}
+@media screen and (width >= 768px) {
+  header #header-favs {
+    order: 1;
+  }
+}
+
+@media screen and (width >= 768px) {
+  header #header-bookings {
+    text-align: right;
+    order: 3;
+  }
+}
+
+#noBookings {
+  margin-top: 32px;
+}
+
+#bookings #bookings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+#app-content {
+  display: none;
+}
+#app-content.show {
+  width: 100%;
   margin: 0;
   padding: 0;
   height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #000;
-  color: #fff;
+  row-gap: 32px;
 }
 
-h1 {
-  font-size: 5rem;
-  font-family: "Honk", system-ui;
-  font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal;
-  font-variation-settings: "MORF" 15, "SHLN" 50;
+#section-districtSelector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.subtitle {
-  font-size: 1.2rem;
+#districtSelector-title {
+  padding: 16px;
 }
 
-#map {
-  height: 60vh;
-  width: 100%;
-}
-
-.gm-style-iw-d {
-  color: #000;
+.modal #btn-confirm {
+  margin: auto;
 }

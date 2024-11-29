@@ -1,0 +1,63 @@
+.btn-retro {
+  max-width: 200px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  font-size: 18px;
+  background-color: #eb4fab;
+  box-shadow: inset -4px 2px 1px 1px grey, inset -4px -2px 1px 1px lightgray,
+    inset 4px 0px 1px 1px lightgray;
+}
+
+.btn-retro.secondary {
+  background-color: #e5e5e5;
+}
+
+.btn-retro:hover {
+  cursor: pointer;
+  background-color: #da499d;
+}
+.btn-retro.btn-retro.secondary:hover {
+  background-color: #d6d6d6;
+}
+
+.btn-retro:active {
+  top: 5px;
+  box-shadow: -4px 2px 1px 1px grey, -4px -2px 1px 1px lightgray,
+    4px 0px 1px 1px lightgray;
+}
+
+.btn-retro::after {
+  content: "";
+  background: black;
+  position: absolute;
+  left: -2.5%;
+  top: 0;
+  width: 105%;
+  height: 100%;
+  z-index: -1;
+}
+
+.btn-retro::before {
+  content: "";
+  background: black;
+  position: absolute;
+  left: 0;
+  top: -5%;
+  width: 100%;
+  height: 113%;
+  z-index: -1;
+}
+
+.inline-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+
+.inline-buttons > .btn-retro {
+  flex: 1;
+}

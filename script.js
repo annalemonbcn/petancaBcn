@@ -1,49 +1,67 @@
-function initMap() {
-  const map = new google.maps.Map(document.getElementById("map"), {
-    zoom: 12,
-    center: { lat: 41.40986034274614, lng: 2.1871164233368017 },
-    mapTypeControl: false,
-  });
+import { dataToMarkers } from "./src/api/dataToMarkers.js";
+import { fetchAllRecords } from "./src/api/fetchAllRecords.js";
+import { filterMarkersByDistrict } from "./src/map/utils.js";
+import { initMap, updateMap } from "./src/map/initmap.js";
+import { makeDistrictSelectorOptions } from "./src/ui/selectors.js";
+import { toggleLoader, toggleShowFavs } from "./src/utils/utils.js";
+import { PROXY_URL, API_URL } from "./src/vars/index.js";
+import { createHeader } from "./src/utils/header.js";
 
-  // Name
-  // Lat, lng
-  const markers = [
-    {
-      name: "Pistes de Petanca la Llosa del Bon Pastor",
-      lat: 41.43685278329868,
-      lng: 2.2090017756302776,
-    },
-    {
-      name: "Pistes Municipals de Petanca Exposició",
-      lat: 41.37122765895013,
-      lng: 2.162878181473128,
-    },
-    {
-      name: "Club de Petanca Amics de Nou Barris",
-      lat: 41.44602969483294,
-      lng: 2.184595591064207,
-    },
-    {
-      name: "Pistes Municipals de Petanca Sant Joan",
-      lat: 41.40318752777066,
-      lng: 2.1641778235213587,
-    },
-  ];
+async function initApp() {
+  let useFavs = false;
+  createHeader();
 
-  for (let i = 0; i < markers.length; i++) {
-    const currMarker = markers[i];
+  try {
+    const baseUrl = PROXY_URL + API_URL;
+    const params =
+      "?resource_id=6409e71a-6c79-4d21-9c14-373dbd01f26d&q=pist+petanca";
 
-    const marker = new google.maps.Marker({
-      position: { lat: markers[i].lat, lng: markers[i].lng },
-      map: map,
-    });
+    toggleLoader(true);
 
-    const infoWindow = new google.maps.InfoWindow({
-      content: markers[i].name,
-    });
+    // Fetch markers
+    const allRecords = await fetchAllRecords(baseUrl + params);
+    let markers = dataToMarkers(allRecords);
 
-    marker.addListener("click", () => {
-      infoWindow.open(map, marker);
-    });
+    toggleLoader(false);
+
+    document.getElementById("app-content").classList.add("show");
+
+    // Initialize selector + create options
+    const selector = document.getElementById("districtsSelector");
+    makeDistrictSelectorOptions(selector, markers);
+
+    // Check if stored district in localStorage + set selector value to that district
+    const storedDistrict = localStorage.getItem("selectedDistrict");
+    selector.value = storedDistrict || "All";
+
+    const favsButton = document.getElementById("header-favs");
+    favsButton.onclick = () => {
+      useFavs = !useFavs;
+      toggleShowFavs(useFavs, markers, selector);
+    };
+
+    // Update the map when the selector value changes
+    selector.onchange = () => {
+      useFavs = false;
+      updateMap(
+        filterMarkersByDistrict(selector.value || "All", markers),
+        markers,
+        selector.value || "All"
+      );
+      localStorage.setItem("selectedDistrict", selector.value);
+    };
+
+    // Initialize map
+    initMap(
+      filterMarkersByDistrict(selector.value || "All", markers),
+      markers,
+      selector.value || "All"
+    );
+  } catch (error) {
+    console.error("Error initializing app:", error);
+    toggleLoader(false);
   }
 }
+
+// Call initApp when the page loads
+document.addEventListener("DOMContentLoaded", initApp);
