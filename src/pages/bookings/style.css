@@ -1,3 +1,12 @@
+header #header-favs,
+header #header-bookings {
+  display: none;
+}
+
+.section#section-bookingsList h2 {
+  text-align: center;
+}
+
 #bookings {
   margin-top: 8px;
   display: flex;

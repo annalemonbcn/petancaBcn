@@ -219,7 +219,7 @@ bookButton.onclick = () => {
     );
     confirmation.on(
       "click",
-      ({ target, event }) => (window.location.href = "src/pages/bookings.html")
+      ({ target, event }) => (window.location.href = "src/pages/bookings/bookings.html")
     );
     closeModal(bookingModal);
     toggleView();
