@@ -16,8 +16,16 @@
       href="https://fonts.googleapis.com/css2?family=VT323&display=swap"
       rel="stylesheet"
     />
+    <script
+      src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"
+      defer
+    ></script>
     <script type="module" src="index.js" defer></script>
 
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css"
+    />
     <link rel="stylesheet" type="text/css" href="/src/css/reset.css" />
     <link rel="stylesheet" type="text/css" href="/style.css" />
     <link rel="stylesheet" type="text/css" href="/src/pages/style.css" />
@@ -31,7 +39,13 @@
       <header></header>
       <div class="section" id="section-bookingsList">
         <h2>Bookings list</h2>
-        <div id="bookings"></div>
+        <div id="noBookings" style="display: none">
+          <h3>No bookings yet!</h3>
+        </div>
+        <div id="bookings" style="display: none">
+          <p id="deleteAll">Delete all</p>
+          <div id="bookings-list"></div>
+        </div>
       </div>
 
       <div id="modal-delete" class="modal">
@@ -40,13 +54,13 @@
             <span id="ico-close">&times;</span>
           </div>
           <div id="modal-body">
-            <p>
-              Are you sure you want to delete the booking for
-              <span class="court-name"></span>?
-            </p>
+            <p>You are about to delete the following booking:</p>
+            <p>Court: <span id="details-courtName"></span></p>
+            <p><span id="details-day"></span></p>
+            <p><span id="details-hour"></span>h</p>
             <div class="buttons inline-buttons">
               <div class="btn-retro secondary" id="cancel">Cancel</div>
-              <div class="btn-retro" id="book">Delete</div>
+              <div class="btn-retro" id="delete">Delete</div>
             </div>
           </div>
         </div>

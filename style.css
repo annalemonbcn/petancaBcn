@@ -22,6 +22,16 @@ header #header-favs {
   /* align-items: center; */
 }
 
+#noBookings {
+  margin-top: 32px;
+}
+
+#bookings #bookings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
 #header-bookings {
   text-align: right;
 }
