@@ -54,7 +54,7 @@ const renderBookings = () => {
 renderBookings();
 
 const crossElements = document.querySelectorAll(".booking .cancel img");
-const modal = document.querySelector(".modal#modal-delete");
+const deleteModal = document.querySelector(".modal#modal-delete");
 const courtNameEl = document.querySelector(".modal#modal-delete .court-name");
 
 // Add listeners to cross elements
@@ -66,10 +66,29 @@ crossElements.forEach((crossEl) => {
 });
 
 const openModal = (booking) => {
-  modal.style.display = "block";
+  deleteModal.style.display = "block";
 
   const bookingName = booking.children[0].children[1].innerHTML;
   courtNameEl.innerHTML = bookingName;
 
   const bookingId = booking.dataset.id;
+};
+
+const closeModal = () => {
+  deleteModal.style.display = "none";
+};
+
+// Listener to icoClose
+const icoClose = document.getElementById("ico-close");
+icoClose.onclick = () => closeModal();
+
+// Listener to cancel button
+const cancelButton = document.querySelector(".modal .btn-retro#cancel");
+cancelButton.onclick = () => closeModal();
+
+// Listener to window to close the modal if click anywhere outside of the modal
+window.onclick = (event) => {
+  if (event.target == deleteModal) {
+    closeModal();
+  }
 };
