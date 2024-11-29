@@ -1,5 +1,3 @@
-import { heart } from "../svg/heart.js";
-import { heartFill } from "../svg/heart-fill.js";
 import {
   toggleFavourite,
   filterMarkersByDistrict,
@@ -57,14 +55,14 @@ const updateMap = (filteredMarkers, originalMarkers, selectorValue) => {
 
     const markerAddress = `${marker.address.road_name}, ${marker.address.street_number}, ${marker.address.zip_code}, ${marker.address.district_name}`;
 
-    const heartIcon = marker.isFav ? heartFill : heart;
-
     const contentString =
       '<div id="infoWindow">' +
       '<div id="infoWindow-header">' +
       `<h3 id="infoWindow-header-title">${marker.name}</h3>` +
       '<div id="heart-container">' +
-      heartIcon +
+      `<img src="${
+        marker.isFav ? "/src/svg/heart-fill.svg" : "/src/svg/heart.svg"
+      }" class="ico-heart" width="18"/>` +
       "</div>" +
       "</div>" +
       '<div id="infoWindow-body-address">' +

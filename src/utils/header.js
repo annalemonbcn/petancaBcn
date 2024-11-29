@@ -1,10 +1,8 @@
-import { glassesWhite } from "../svg/glasses-white.js";
-
 const headerItems = [
   {
     id: "header-favs",
     content: `
-      ${glassesWhite}
+      <img src="/src/svg/glasses-white.svg" width="30" />
       <p>favs</p>
     `,
   },
