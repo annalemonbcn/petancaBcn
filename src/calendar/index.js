@@ -222,6 +222,7 @@ bookButton.onclick = () => {
       ({ target, event }) => (window.location.href = "src/pages/bookings.html")
     );
     closeModal(bookingModal);
+    toggleView();
   } catch (error) {
     notyf.error("Couldn't register your booking. Please try again");
     console.error("Error registering a booking", error);

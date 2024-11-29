@@ -108,14 +108,10 @@ const updateMap = (filteredMarkers, originalMarkers, selectorValue) => {
 
       const trigger = document.getElementById("btn-openModal");
       // Open modal
-      trigger.onclick = () => {
-        openModal(bookingModal, marker);
-      };
+      trigger.onclick = () => openModal(bookingModal, marker);
 
       // Close modal
-      icoClose.onclick = () => {
-        closeModal(bookingModal);
-      };
+      icoClose.onclick = () => closeModal(bookingModal);
 
       // Close modal if cancel button is pressed
       const cancelButton = document.querySelector(".modal .btn-retro#cancel");
@@ -128,6 +124,7 @@ const updateMap = (filteredMarkers, originalMarkers, selectorValue) => {
       window.onclick = (event) => {
         if (event.target == bookingModal) {
           closeModal(bookingModal);
+          toggleView();
         }
       };
 
