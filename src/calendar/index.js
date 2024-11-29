@@ -206,6 +206,7 @@ btnConfirm.onclick = () => {
 
   // Fill view info
   const courtNameEl = document.querySelector("#modal-body .confirm #courtName");
+  console.log("courtNameEl", courtNameEl);
   courtNameEl.innerHTML = markerNameEl.innerHTML;
 
   const confirmSelectedDayEl = document.querySelector(
